@@ -32,11 +32,6 @@ class SearchViewController: UIViewController {
         self.navigationItem.title = "find ur twitter"
         self.view.backgroundColor = .systemBackground
         
-        guard let devMode: String = Bundle.main.infoDictionary?["IS_DEV"] as? String else { return }
-        if devMode == "YES" {
-            twitterHandles = testTwitterHandles
-        }
-        
         searchBar.searchResultsUpdater = self
         navigationItem.searchController = searchBar
         
@@ -51,8 +46,6 @@ class SearchViewController: UIViewController {
             searchTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             searchTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
-        
-        applySnapshot(animated: false)
     }
     
     func initDataSource() -> DataSource {
@@ -87,9 +80,7 @@ extension SearchViewController: UISearchResultsUpdating {
                 }
                 
                 self?.twitterHandles = response
-                
                 self?.applySnapshot(animated: false)
-                
             }
         }
     }
