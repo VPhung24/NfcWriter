@@ -48,7 +48,7 @@ class SearchViewController: UIViewController {
         ])
     }
     
-    // MARK: - NSDiffableDataSourceSnapshot
+    // MARK: - UITableViewDiffableDataSource
     func initDataSource() -> DataSource {
         let dataSource = DataSource(tableView: searchTableView, cellProvider: { (tableView, indexPath, twitterHandle: TwitterHandleModel) -> UITableViewCell? in
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "twitter", for: indexPath)
@@ -67,7 +67,7 @@ class SearchViewController: UIViewController {
         return dataSource
     }
     
-    // MARK: - UITableViewDiffableDataSource
+    // MARK: - NSDiffableDataSourceSnapshot
     func applySnapshot(animated: Bool) {
         var snapshot = Snapshot()
         snapshot.appendSections([.twitter])
@@ -91,6 +91,7 @@ class SearchViewController: UIViewController {
     }
 }
 
+// MARK: - UISearchResultsUpdating
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let searchBarText = searchController.searchBar.text {
@@ -106,6 +107,7 @@ extension SearchViewController: UISearchResultsUpdating {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let blankViewController = UIViewController()

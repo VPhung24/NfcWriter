@@ -13,11 +13,10 @@ class APIManager {
     
     // force using shared instance
     private init() {}
-        
+    
     private let twitterAPIURL = "https://api.twitter.com/"
     
-    // API calls
-
+    // MARK: - API Calls
     func getProfileImage(twitterHandleModel: TwitterHandleModel, completionHandler: @escaping (TwitterHandleModel?, Error?) -> Void) {
         let urlRequest: URLRequest = networkRequest(baseURL: twitterHandleModel.profileImageURL, endpoint: TwitterAPIEndpoint.GetProfilePhoto)
         networkTask(request: urlRequest, endpoint: TwitterAPIEndpoint.GetProfilePhoto) { (response: Data?, error) in
@@ -26,7 +25,7 @@ class APIManager {
                 completionHandler(twitterHandleModel, nil)
                 return
             }
-            completionHandler(nil, CustomError.imageError)
+            completionHandler(nil, APIError.imageError)
         }
     }
     
@@ -42,8 +41,7 @@ class APIManager {
         }
     }
     
-    // Networking
-    
+    // MARK: - Networking
     func networkRequest(baseURL: String, endpoint: Endpoint, parameters: [String: Any]? = nil, headers: [String: String]? = nil) -> URLRequest {
         var components = URLComponents(string: baseURL + endpoint.path)!
         guard let parameters = parameters else {
@@ -93,39 +91,7 @@ class APIManager {
     }
 }
 
-enum Method: String {
-    case GET
-    case POST
-}
-
-protocol Endpoint {
-    var path: String { get }
-    var method: Method { get }
-    
-}
-
-enum TwitterAPIEndpoint: Endpoint {
-    case GetInfoForHandle, GetHandlesForString, GetProfilePhoto
-    
-    var path: String {
-        switch self {
-        case .GetInfoForHandle:
-            return "2/users/by"
-        case .GetHandlesForString:
-            return "1.1/users/search.json"
-        default:
-            return ""
-        }
-    }
-    
-    var method: Method {
-        switch self {
-        default:
-            return .GET
-        }
-    }
-}
-
-enum CustomError: Error {
+// MARK: - Error
+enum APIError: Error {
     case imageError
 }

@@ -10,5 +10,5 @@ import UIKit
 typealias DataSource = UITableViewDiffableDataSource<Section, TwitterHandleModel>
 
 enum Section {
-  case twitter
+    case twitter
 }

@@ -15,6 +15,7 @@
 		081AF86F28FDFC5800425075 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF86E28FDFC5800425075 /* Section.swift */; };
 		081AF87128FDFD2700425075 /* TwitterHandleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87028FDFD2700425075 /* TwitterHandleModel.swift */; };
 		081AF87428FE08FF00425075 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87328FE08FF00425075 /* APIManager.swift */; };
+		081AF87B28FF1CBE00425075 /* EndpointManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87A28FF1CBE00425075 /* EndpointManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		081AF87028FDFD2700425075 /* TwitterHandleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterHandleModel.swift; sourceTree = "<group>"; };
 		081AF87228FE017F00425075 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		081AF87328FE08FF00425075 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		081AF87A28FF1CBE00425075 /* EndpointManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				081AF86E28FDFC5800425075 /* Section.swift */,
 				081AF87028FDFD2700425075 /* TwitterHandleModel.swift */,
 				081AF87328FE08FF00425075 /* APIManager.swift */,
+				081AF87A28FF1CBE00425075 /* EndpointManager.swift */,
 				081AF86128FDF71F00425075 /* Assets.xcassets */,
 				081AF86328FDF71F00425075 /* LaunchScreen.storyboard */,
 				081AF86628FDF71F00425075 /* Info.plist */,
@@ -147,6 +150,7 @@
 			files = (
 				081AF87428FE08FF00425075 /* APIManager.swift in Sources */,
 				081AF85D28FDF71E00425075 /* SearchViewController.swift in Sources */,
+				081AF87B28FF1CBE00425075 /* EndpointManager.swift in Sources */,
 				081AF85928FDF71E00425075 /* AppDelegate.swift in Sources */,
 				081AF86F28FDFC5800425075 /* Section.swift in Sources */,
 				081AF85B28FDF71E00425075 /* SceneDelegate.swift in Sources */,
@@ -219,7 +223,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -274,7 +278,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
