@@ -48,15 +48,18 @@ class SearchViewController: UIViewController {
         ])
     }
     
+    // MARK: - NSDiffableDataSourceSnapshot
     func initDataSource() -> DataSource {
         let dataSource = DataSource(tableView: searchTableView, cellProvider: { (tableView, indexPath, twitterHandle: TwitterHandleModel) -> UITableViewCell? in
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "twitter", for: indexPath)
             var content = cell.defaultContentConfiguration()
             content.text = twitterHandle.name
             content.secondaryText = twitterHandle.username
-            content.image = UIImage(systemName: "star")
-            
-            
+            if twitterHandle.image == nil {
+                self.getProfileImageForTwitterProfile(twitterHandle)
+            } else {
+                content.image = twitterHandle.image
+            }
             cell.contentConfiguration = content
             
             return cell
@@ -64,11 +67,27 @@ class SearchViewController: UIViewController {
         return dataSource
     }
     
+    // MARK: - UITableViewDiffableDataSource
     func applySnapshot(animated: Bool) {
         var snapshot = Snapshot()
         snapshot.appendSections([.twitter])
         snapshot.appendItems(twitterHandles)
         dataSource.apply(snapshot, animatingDifferences: animated)
+    }
+    
+    fileprivate func getProfileImageForTwitterProfile(_ twitterHandle: TwitterHandleModel) {
+        APIManager.shared.getProfileImage(twitterHandleModel: twitterHandle) { updatedTwitterModelWithImage, error in
+            guard let updatedModel = updatedTwitterModelWithImage else {
+                return
+            }
+            var currentSnapshot = self.dataSource.snapshot()
+            if let datasourceIndex = currentSnapshot.indexOfItem(updatedModel) {
+                let item = self.twitterHandles[datasourceIndex]
+                item.image = updatedModel.image
+                currentSnapshot.reloadItems([item])
+                self.dataSource.apply(currentSnapshot, animatingDifferences: true)
+            }
+        }
     }
 }
 
@@ -80,13 +99,18 @@ extension SearchViewController: UISearchResultsUpdating {
                     print("apiRequest error: ", error ?? "nothing")
                     return
                 }
-                
                 self?.twitterHandles = response
-                self?.applySnapshot(animated: false)
+                self?.applySnapshot(animated: true)
             }
         }
     }
 }
 
 extension SearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let blankViewController = UIViewController()
+        blankViewController.title = self.twitterHandles[indexPath.row].username
+        
+        self.navigationController?.pushViewController(blankViewController, animated: false)
+    }
 }

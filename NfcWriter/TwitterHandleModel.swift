@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import UIKit
 
 class TwitterHandleModel: Hashable, Codable {
     var username: String
     var name: String
     var profileImageURL: String
+    var image: UIImage?
     
     init(username: String, name: String, profileImageURL: String) {
         self.username = username
@@ -22,6 +24,7 @@ class TwitterHandleModel: Hashable, Codable {
         case username = "screen_name"
         case profileImageURL = "profile_image_url_https"
         case name
+        case image
     }
     
     func encode(to encoder: Encoder) throws {
@@ -32,14 +35,15 @@ class TwitterHandleModel: Hashable, Codable {
     }
     
     required init(from decoder: Decoder) throws {
-      let keyedContainer = try decoder.container(keyedBy: CodingKeys.self)
-      name = try keyedContainer.decode(String.self, forKey: .name)
-      username = try keyedContainer.decode(String.self, forKey: .username)
-      profileImageURL = try keyedContainer.decode(String.self, forKey: .profileImageURL)
+        let keyedContainer = try decoder.container(keyedBy: CodingKeys.self)
+        name = try keyedContainer.decode(String.self, forKey: .name)
+        username = try keyedContainer.decode(String.self, forKey: .username)
+        profileImageURL = try keyedContainer.decode(String.self, forKey: .profileImageURL)
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(username)
+        hasher.combine(image)
     }
     
     static func == (lhs: TwitterHandleModel, rhs: TwitterHandleModel) -> Bool {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class APIManager {
     static let shared = APIManager()
@@ -17,14 +18,26 @@ class APIManager {
     
     // API calls
 
+    func getProfileImage(twitterHandleModel: TwitterHandleModel, completionHandler: @escaping (TwitterHandleModel?, Error?) -> Void) {
+        let urlRequest: URLRequest = networkRequest(baseURL: twitterHandleModel.profileImageURL, endpoint: TwitterAPIEndpoint.GetProfilePhoto)
+        networkTask(request: urlRequest, endpoint: TwitterAPIEndpoint.GetProfilePhoto) { (response: Data?, error) in
+            if let data = response, let image = UIImage(data: data) {
+                twitterHandleModel.image = image
+                completionHandler(twitterHandleModel, nil)
+                return
+            }
+            completionHandler(nil, CustomError.imageError)
+        }
+    }
+    
     func searchforTwitterHandle(forString input: String, completionHandler: @escaping ([TwitterHandleModel]?, Error?) -> Void) {
         let parameters: [String: Any] = ["q": input, "page": "1", "count": "10"]
-
+        
         guard let bearerToken: String = Bundle.main.infoDictionary?["BEARER_TOKEN"] as? String else { return }
         let header: [String: String] = ["Authorization": bearerToken]
-
+        
         let urlRequest: URLRequest = networkRequest(baseURL: twitterAPIURL, endpoint: TwitterAPIEndpoint.GetHandlesForString, parameters: parameters, headers: header)
-        networkTask(request: urlRequest) { (response: [TwitterHandleModel]?, error) in
+        networkTask(request: urlRequest, endpoint: TwitterAPIEndpoint.GetHandlesForString) { (response: [TwitterHandleModel]?, error) in
             completionHandler(response, error)
         }
     }
@@ -52,7 +65,7 @@ class APIManager {
         return request as URLRequest
     }
     
-    func networkTask<T: Codable>(request: URLRequest, completionHandler: @escaping (T?, Error?) -> Void) {
+    func networkTask<T: Codable>(request: URLRequest, endpoint: Endpoint, completionHandler: @escaping (T?, Error?) -> Void) {
         let session: URLSession = URLSession.shared
         
         let task = session.dataTask(with: request) { data, response, error in
@@ -60,14 +73,21 @@ class APIManager {
                 completionHandler(nil, error)
                 return
             }
-                        
-            let decoder = JSONDecoder()
-            do {
-                let jsonData: T = try decoder.decode(T.self, from: responseData)
-                completionHandler(jsonData, nil)
-            } catch let error { // catches decoding error from the try
-                completionHandler(nil, error)
+            
+            switch endpoint {
+            case TwitterAPIEndpoint.GetProfilePhoto:
+                completionHandler(responseData as? T, nil)
+                break
+            default:
+                let decoder = JSONDecoder()
+                do {
+                    let jsonData: T = try decoder.decode(T.self, from: responseData)
+                    completionHandler(jsonData, nil)
+                } catch let error { // catches decoding error from the try
+                    completionHandler(nil, error)
+                }
             }
+            
         }
         task.resume()
     }
@@ -85,7 +105,7 @@ protocol Endpoint {
 }
 
 enum TwitterAPIEndpoint: Endpoint {
-    case GetInfoForHandle, GetHandlesForString
+    case GetInfoForHandle, GetHandlesForString, GetProfilePhoto
     
     var path: String {
         switch self {
@@ -93,13 +113,19 @@ enum TwitterAPIEndpoint: Endpoint {
             return "2/users/by"
         case .GetHandlesForString:
             return "1.1/users/search.json"
+        default:
+            return ""
         }
     }
     
     var method: Method {
         switch self {
-        case .GetInfoForHandle, .GetHandlesForString:
+        default:
             return .GET
         }
     }
+}
+
+enum CustomError: Error {
+    case imageError
 }
