@@ -46,11 +46,3 @@ class TwitterHandleModel: Hashable, Codable {
         lhs.username == rhs.username
     }
 }
-
-let testTwitterHandles: [TwitterHandleModel] =
-[TwitterHandleModel(username: "@helloworld", name: "hello world", profileImageURL: "link"),
- TwitterHandleModel(username: "@test", name: "test", profileImageURL: "test link"),
- TwitterHandleModel(username: "@well", name: "readme", profileImageURL: "link"),
- TwitterHandleModel(username: "@hello", name: "tacos", profileImageURL: "link"),
- TwitterHandleModel(username: "@apple pie", name: "pie apple", profileImageURL: "link"),
-]

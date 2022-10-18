@@ -55,6 +55,8 @@ class SearchViewController: UIViewController {
             content.text = twitterHandle.name
             content.secondaryText = twitterHandle.username
             content.image = UIImage(systemName: "star")
+            
+            
             cell.contentConfiguration = content
             
             return cell
@@ -73,7 +75,7 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let searchBarText = searchController.searchBar.text {
-            NetworkManager.shared.searchforTwitterHandle(forString: searchBarText) { [weak self] (response, error) in
+            APIManager.shared.searchforTwitterHandle(forString: searchBarText) { [weak self] (response, error) in
                 guard error == nil, let response = response else {
                     print("apiRequest error: ", error ?? "nothing")
                     return

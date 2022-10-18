@@ -1,5 +1,5 @@
 //
-//  NetworkManager.swift
+//  APIManager.swift
 //  NfcWriter
 //
 //  Created by Vivian Phung on 10/17/22.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-class NetworkManager {
-    static let shared = NetworkManager()
+class APIManager {
+    static let shared = APIManager()
     
     // force using shared instance
     private init() {}

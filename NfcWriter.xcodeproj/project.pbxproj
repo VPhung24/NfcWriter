@@ -14,7 +14,7 @@
 		081AF86528FDF71F00425075 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 081AF86328FDF71F00425075 /* LaunchScreen.storyboard */; };
 		081AF86F28FDFC5800425075 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF86E28FDFC5800425075 /* Section.swift */; };
 		081AF87128FDFD2700425075 /* TwitterHandleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87028FDFD2700425075 /* TwitterHandleModel.swift */; };
-		081AF87428FE08FF00425075 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87328FE08FF00425075 /* NetworkManager.swift */; };
+		081AF87428FE08FF00425075 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87328FE08FF00425075 /* APIManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +28,7 @@
 		081AF86E28FDFC5800425075 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		081AF87028FDFD2700425075 /* TwitterHandleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterHandleModel.swift; sourceTree = "<group>"; };
 		081AF87228FE017F00425075 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		081AF87328FE08FF00425075 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		081AF87328FE08FF00425075 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +66,7 @@
 				081AF85C28FDF71E00425075 /* SearchViewController.swift */,
 				081AF86E28FDFC5800425075 /* Section.swift */,
 				081AF87028FDFD2700425075 /* TwitterHandleModel.swift */,
-				081AF87328FE08FF00425075 /* NetworkManager.swift */,
+				081AF87328FE08FF00425075 /* APIManager.swift */,
 				081AF86128FDF71F00425075 /* Assets.xcassets */,
 				081AF86328FDF71F00425075 /* LaunchScreen.storyboard */,
 				081AF86628FDF71F00425075 /* Info.plist */,
@@ -145,7 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				081AF87428FE08FF00425075 /* NetworkManager.swift in Sources */,
+				081AF87428FE08FF00425075 /* APIManager.swift in Sources */,
 				081AF85D28FDF71E00425075 /* SearchViewController.swift in Sources */,
 				081AF85928FDF71E00425075 /* AppDelegate.swift in Sources */,
 				081AF86F28FDFC5800425075 /* Section.swift in Sources */,
