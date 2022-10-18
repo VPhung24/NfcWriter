@@ -9,21 +9,30 @@
 /* Begin PBXBuildFile section */
 		081AF85928FDF71E00425075 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF85828FDF71E00425075 /* AppDelegate.swift */; };
 		081AF85B28FDF71E00425075 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF85A28FDF71E00425075 /* SceneDelegate.swift */; };
-		081AF85D28FDF71E00425075 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF85C28FDF71E00425075 /* ViewController.swift */; };
-		081AF86028FDF71E00425075 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 081AF85E28FDF71E00425075 /* Main.storyboard */; };
+		081AF85D28FDF71E00425075 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF85C28FDF71E00425075 /* SearchViewController.swift */; };
 		081AF86228FDF71F00425075 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 081AF86128FDF71F00425075 /* Assets.xcassets */; };
 		081AF86528FDF71F00425075 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 081AF86328FDF71F00425075 /* LaunchScreen.storyboard */; };
+		081AF86F28FDFC5800425075 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF86E28FDFC5800425075 /* Section.swift */; };
+		081AF87128FDFD2700425075 /* TwitterHandleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87028FDFD2700425075 /* TwitterHandleModel.swift */; };
+		081AF87428FE08FF00425075 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87328FE08FF00425075 /* APIManager.swift */; };
+		081AF87B28FF1CBE00425075 /* EndpointManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87A28FF1CBE00425075 /* EndpointManager.swift */; };
+		081AF87D28FF1DCA00425075 /* TagNFCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87C28FF1DCA00425075 /* TagNFCViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		081AF85528FDF71E00425075 /* NfcWriter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NfcWriter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		081AF85828FDF71E00425075 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		081AF85A28FDF71E00425075 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		081AF85C28FDF71E00425075 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		081AF85F28FDF71E00425075 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		081AF85C28FDF71E00425075 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		081AF86128FDF71F00425075 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		081AF86428FDF71F00425075 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		081AF86628FDF71F00425075 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		081AF86E28FDFC5800425075 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		081AF87028FDFD2700425075 /* TwitterHandleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterHandleModel.swift; sourceTree = "<group>"; };
+		081AF87228FE017F00425075 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		081AF87328FE08FF00425075 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		081AF87A28FF1CBE00425075 /* EndpointManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointManager.swift; sourceTree = "<group>"; };
+		081AF87C28FF1DCA00425075 /* TagNFCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagNFCViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +67,16 @@
 			children = (
 				081AF85828FDF71E00425075 /* AppDelegate.swift */,
 				081AF85A28FDF71E00425075 /* SceneDelegate.swift */,
-				081AF85C28FDF71E00425075 /* ViewController.swift */,
-				081AF85E28FDF71E00425075 /* Main.storyboard */,
+				081AF85C28FDF71E00425075 /* SearchViewController.swift */,
+				081AF87C28FF1DCA00425075 /* TagNFCViewController.swift */,
+				081AF86E28FDFC5800425075 /* Section.swift */,
+				081AF87028FDFD2700425075 /* TwitterHandleModel.swift */,
+				081AF87328FE08FF00425075 /* APIManager.swift */,
+				081AF87A28FF1CBE00425075 /* EndpointManager.swift */,
 				081AF86128FDF71F00425075 /* Assets.xcassets */,
 				081AF86328FDF71F00425075 /* LaunchScreen.storyboard */,
 				081AF86628FDF71F00425075 /* Info.plist */,
+				081AF87228FE017F00425075 /* Config.xcconfig */,
 			);
 			path = NfcWriter;
 			sourceTree = "<group>";
@@ -127,7 +141,6 @@
 			files = (
 				081AF86528FDF71F00425075 /* LaunchScreen.storyboard in Resources */,
 				081AF86228FDF71F00425075 /* Assets.xcassets in Resources */,
-				081AF86028FDF71E00425075 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +151,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				081AF85D28FDF71E00425075 /* ViewController.swift in Sources */,
+				081AF87428FE08FF00425075 /* APIManager.swift in Sources */,
+				081AF85D28FDF71E00425075 /* SearchViewController.swift in Sources */,
+				081AF87B28FF1CBE00425075 /* EndpointManager.swift in Sources */,
 				081AF85928FDF71E00425075 /* AppDelegate.swift in Sources */,
+				081AF86F28FDFC5800425075 /* Section.swift in Sources */,
 				081AF85B28FDF71E00425075 /* SceneDelegate.swift in Sources */,
+				081AF87128FDFD2700425075 /* TwitterHandleModel.swift in Sources */,
+				081AF87D28FF1DCA00425075 /* TagNFCViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		081AF85E28FDF71E00425075 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				081AF85F28FDF71E00425075 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		081AF86328FDF71F00425075 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -168,6 +178,7 @@
 /* Begin XCBuildConfiguration section */
 		081AF86728FDF71F00425075 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 081AF87228FE017F00425075 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -216,7 +227,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -228,6 +239,7 @@
 		};
 		081AF86828FDF71F00425075 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 081AF87228FE017F00425075 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -270,7 +282,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -282,6 +294,7 @@
 		};
 		081AF86A28FDF71F00425075 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 081AF87228FE017F00425075 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -292,7 +305,6 @@
 				INFOPLIST_FILE = NfcWriter/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -311,6 +323,7 @@
 		};
 		081AF86B28FDF71F00425075 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 081AF87228FE017F00425075 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -321,7 +334,6 @@
 				INFOPLIST_FILE = NfcWriter/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
