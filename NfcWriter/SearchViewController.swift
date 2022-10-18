@@ -56,7 +56,7 @@ class SearchViewController: UIViewController {
             content.text = twitterHandle.name
             content.secondaryText = twitterHandle.username
             if twitterHandle.image == nil {
-                self.getProfileImageForTwitterProfile(twitterHandle)
+                self.getProfileImageForTwitterProfile(twitterHandle: twitterHandle)
             } else {
                 content.image = twitterHandle.image
             }
@@ -75,7 +75,7 @@ class SearchViewController: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: animated)
     }
     
-    fileprivate func getProfileImageForTwitterProfile(_ twitterHandle: TwitterHandleModel) {
+    fileprivate func getProfileImageForTwitterProfile(twitterHandle: TwitterHandleModel) {
         APIManager.shared.getProfileImage(twitterHandleModel: twitterHandle) { updatedTwitterModelWithImage, error in
             guard let updatedModel = updatedTwitterModelWithImage else {
                 return
@@ -110,9 +110,6 @@ extension SearchViewController: UISearchResultsUpdating {
 // MARK: - UITableViewDelegate
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let blankViewController = UIViewController()
-        blankViewController.title = self.twitterHandles[indexPath.row].username
-        
-        self.navigationController?.pushViewController(blankViewController, animated: false)
+        self.navigationController?.pushViewController(TagNFCViewController(twitterProfile: self.twitterHandles[indexPath.row]), animated: false)
     }
 }

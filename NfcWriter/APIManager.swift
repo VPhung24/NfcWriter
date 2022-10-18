@@ -17,8 +17,9 @@ class APIManager {
     private let twitterAPIURL = "https://api.twitter.com/"
     
     // MARK: - API Calls
-    func getProfileImage(twitterHandleModel: TwitterHandleModel, completionHandler: @escaping (TwitterHandleModel?, Error?) -> Void) {
-        let urlRequest: URLRequest = networkRequest(baseURL: twitterHandleModel.profileImageURL, endpoint: TwitterAPIEndpoint.GetProfilePhoto)
+    func getProfileImage(twitterHandleModel: TwitterHandleModel, isFullImage: Bool = false, completionHandler: @escaping (TwitterHandleModel?, Error?) -> Void) {
+        let baseURL: String = isFullImage ? twitterHandleModel.profileImageURL.replacingOccurrences(of: "_normal", with: "") : twitterHandleModel.profileImageURL
+        let urlRequest: URLRequest = networkRequest(baseURL: baseURL, endpoint: TwitterAPIEndpoint.GetProfilePhoto)
         networkTask(request: urlRequest, endpoint: TwitterAPIEndpoint.GetProfilePhoto) { (response: Data?, error) in
             if let data = response, let image = UIImage(data: data) {
                 twitterHandleModel.image = image

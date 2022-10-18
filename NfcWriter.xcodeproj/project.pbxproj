@@ -16,6 +16,7 @@
 		081AF87128FDFD2700425075 /* TwitterHandleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87028FDFD2700425075 /* TwitterHandleModel.swift */; };
 		081AF87428FE08FF00425075 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87328FE08FF00425075 /* APIManager.swift */; };
 		081AF87B28FF1CBE00425075 /* EndpointManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87A28FF1CBE00425075 /* EndpointManager.swift */; };
+		081AF87D28FF1DCA00425075 /* TagNFCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87C28FF1DCA00425075 /* TagNFCViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		081AF87228FE017F00425075 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		081AF87328FE08FF00425075 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		081AF87A28FF1CBE00425075 /* EndpointManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointManager.swift; sourceTree = "<group>"; };
+		081AF87C28FF1DCA00425075 /* TagNFCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagNFCViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				081AF85828FDF71E00425075 /* AppDelegate.swift */,
 				081AF85A28FDF71E00425075 /* SceneDelegate.swift */,
 				081AF85C28FDF71E00425075 /* SearchViewController.swift */,
+				081AF87C28FF1DCA00425075 /* TagNFCViewController.swift */,
 				081AF86E28FDFC5800425075 /* Section.swift */,
 				081AF87028FDFD2700425075 /* TwitterHandleModel.swift */,
 				081AF87328FE08FF00425075 /* APIManager.swift */,
@@ -155,6 +158,7 @@
 				081AF86F28FDFC5800425075 /* Section.swift in Sources */,
 				081AF85B28FDF71E00425075 /* SceneDelegate.swift in Sources */,
 				081AF87128FDFD2700425075 /* TwitterHandleModel.swift in Sources */,
+				081AF87D28FF1DCA00425075 /* TagNFCViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
