@@ -79,6 +79,8 @@ class SearchViewController: UIViewController {
                 self.getProfileImageForTwitterProfile(twitterHandle: twitterHandle)
             } else {
                 content.image = twitterHandle.image
+                // default profile photo size "normal" is 48x48. circle corner radius 48/2
+                content.imageProperties.cornerRadius = 24
             }
             cell.contentConfiguration = content
             cell.accessibilityTraits = .button
