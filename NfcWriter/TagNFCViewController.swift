@@ -11,7 +11,6 @@ import os
 
 class TagNFCViewController: UIViewController {
     let twitterProfile: TwitterHandleModel
-    var profileImage: UIImage?
     
     var readerSession: NFCNDEFReaderSession?
     var ndefMessage: NFCNDEFMessage?
@@ -20,6 +19,9 @@ class TagNFCViewController: UIViewController {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = false
+        imageView.layer.cornerRadius = (UIScreen.main.bounds.width - 20) / 2
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -35,7 +37,6 @@ class TagNFCViewController: UIViewController {
                 return
             }
             self?.twitterProfile.image = newImage
-            self?.profileImage = newImage
             DispatchQueue.main.async {
                 self?.setProfilePhoto(withImage: newImage)
             }
@@ -45,15 +46,15 @@ class TagNFCViewController: UIViewController {
         
         self.view.addSubview(imageView)
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -10),
-            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            imageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20)
         ])
     }
     
     init(twitterProfile: TwitterHandleModel) {
         self.twitterProfile = twitterProfile
-        self.profileImage = twitterProfile.image
         
         super.init(nibName: nil, bundle: nil)
     }
