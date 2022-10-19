@@ -13,21 +13,21 @@ class SearchViewController: UIViewController {
     private lazy var dataSource = initDataSource()
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, TwitterHandleModel>
     
-    let searchBar: UISearchController = {
-        let sb = UISearchController()
-        sb.searchBar.placeholder = "search for twitter handle"
-        sb.searchBar.accessibilityTraits = .searchField
+    let searchBarController: UISearchController = {
+        let searchController = UISearchController()
+        searchController.searchBar.placeholder = "search for twitter handle"
+        searchController.searchBar.accessibilityTraits = .searchField
         
         // dynamic text sizing per settings
-        sb.searchBar.searchTextField.adjustsFontForContentSizeCategory = true
+        searchController.searchBar.searchTextField.adjustsFontForContentSizeCategory = true
         
         // remove predictive text in keyboard
-        sb.searchBar.searchTextField.autocorrectionType = .no
-        sb.searchBar.searchTextField.spellCheckingType = .no
+        searchController.searchBar.searchTextField.autocorrectionType = .no
+        searchController.searchBar.searchTextField.spellCheckingType = .no
         
         // accessibility enable clear button tap
-        sb.obscuresBackgroundDuringPresentation = false
-        return sb
+        searchController.obscuresBackgroundDuringPresentation = false
+        return searchController
     }()
     
     let searchTableView: UITableView = {
@@ -39,17 +39,25 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "find ur twitter"
+        
+        navigationController?.setNavigationBarHidden(true, animated: false)
         self.view.backgroundColor = .systemBackground
         
-        searchBar.searchResultsUpdater = self
-        navigationItem.searchController = searchBar
+        searchBarController.searchResultsUpdater = self
+        searchBarController.searchBar.delegate = self
         
         self.view.addSubview(searchTableView)
         
         searchTableView.delegate = self
         searchTableView.dataSource = dataSource
+        searchTableView.tableHeaderView = searchBarController.searchBar
         
+        // hacky way of getting "x" clear button action
+        let searchTextField = searchBarController.searchBar.searchTextField
+        if let clearButton = searchTextField.value(forKey: "_clearButton") as? UIButton {
+            clearButton.addTarget(self, action: #selector(clearSearch), for: .touchUpInside)
+        }
+
         NSLayoutConstraint.activate([
             searchTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             searchTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -57,7 +65,7 @@ class SearchViewController: UIViewController {
             searchTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
         
-        self.view.accessibilityElements = [self.title, searchBar, searchTableView]
+        self.view.accessibilityElements = [searchBarController, searchTableView]
     }
     
     // MARK: - UITableViewDiffableDataSource
@@ -71,6 +79,8 @@ class SearchViewController: UIViewController {
                 self.getProfileImageForTwitterProfile(twitterHandle: twitterHandle)
             } else {
                 content.image = twitterHandle.image
+                // default profile photo size "normal" is 48x48. circle corner radius 48/2
+                content.imageProperties.cornerRadius = 24
             }
             cell.contentConfiguration = content
             cell.accessibilityTraits = .button
@@ -103,6 +113,11 @@ class SearchViewController: UIViewController {
             }
         }
     }
+    
+    @objc private func clearSearch() {
+        self.twitterHandles = []
+        self.applySnapshot(animated: true)
+    }
 }
 
 // MARK: - UISearchResultsUpdating
@@ -125,5 +140,11 @@ extension SearchViewController: UISearchResultsUpdating {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.navigationController?.pushViewController(TagNFCViewController(twitterProfile: self.twitterHandles[indexPath.row]), animated: false)
+    }
+}
+
+extension SearchViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        clearSearch()
     }
 }
