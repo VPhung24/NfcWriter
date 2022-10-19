@@ -44,6 +44,7 @@ class SearchViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
         
         searchBarController.searchResultsUpdater = self
+        searchBarController.searchBar.delegate = self
         
         self.view.addSubview(searchTableView)
         
@@ -137,5 +138,11 @@ extension SearchViewController: UISearchResultsUpdating {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.navigationController?.pushViewController(TagNFCViewController(twitterProfile: self.twitterHandles[indexPath.row]), animated: false)
+    }
+}
+
+extension SearchViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        clearSearch()
     }
 }
