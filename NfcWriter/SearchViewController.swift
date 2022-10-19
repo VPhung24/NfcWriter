@@ -15,8 +15,18 @@ class SearchViewController: UIViewController {
     
     let searchBar: UISearchController = {
         let sb = UISearchController()
-        sb.searchBar.placeholder = "twitter handle"
-        sb.searchBar.searchBarStyle = .prominent
+        sb.searchBar.placeholder = "search for twitter handle"
+        sb.searchBar.accessibilityTraits = .searchField
+        
+        // dynamic text sizing per settings
+        sb.searchBar.searchTextField.adjustsFontForContentSizeCategory = true
+        
+        // remove predictive text in keyboard
+        sb.searchBar.searchTextField.autocorrectionType = .no
+        sb.searchBar.searchTextField.spellCheckingType = .no
+        
+        // accessibility enable clear button tap
+        sb.obscuresBackgroundDuringPresentation = false
         return sb
     }()
     
@@ -46,6 +56,8 @@ class SearchViewController: UIViewController {
             searchTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             searchTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
+        
+        self.view.accessibilityElements = [self.title, searchBar, searchTableView]
     }
     
     // MARK: - UITableViewDiffableDataSource
@@ -61,7 +73,9 @@ class SearchViewController: UIViewController {
                 content.image = twitterHandle.image
             }
             cell.contentConfiguration = content
-            
+            cell.accessibilityTraits = .button
+            cell.accessibilityLabel = "handle \(twitterHandle.username) with account name \(twitterHandle.name)"
+            cell.accessibilityHint = "tap to tag user"
             return cell
         })
         return dataSource
