@@ -29,7 +29,7 @@ class TagNFCViewController: UIViewController {
         super.viewDidLoad()
         
         title = twitterProfile.username
-        navigationItem.backButtonTitle = "Back"
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "write", style: .plain, target: self, action: #selector(writeTag))
         
         APIManager.shared.getProfileImage(twitterHandleModel: twitterProfile, isFullImage: true) { [weak self] updatedTwitterModelWithImage, error in
@@ -85,6 +85,11 @@ class TagNFCViewController: UIViewController {
         readerSession = NFCNDEFReaderSession(delegate: self, queue: nil, invalidateAfterFirstRead: false)
         readerSession?.alertMessage = "Hold your iPhone near a writable NFC tag to update."
         readerSession?.begin()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.popViewController(animated: false)
     }
     
     private func createURLPayload() -> NFCNDEFPayload? {
