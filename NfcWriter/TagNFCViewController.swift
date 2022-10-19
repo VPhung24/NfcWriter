@@ -6,10 +6,15 @@
 //
 
 import UIKit
+import CoreNFC
+import os
 
 class TagNFCViewController: UIViewController {
     let twitterProfile: TwitterHandleModel
     var profileImage: UIImage?
+    
+    var readerSession: NFCNDEFReaderSession?
+    var ndefMessage: NFCNDEFMessage?
     
     let imageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
@@ -23,6 +28,7 @@ class TagNFCViewController: UIViewController {
         
         title = twitterProfile.username
         navigationItem.backButtonTitle = "Back"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "write", style: .plain, target: self, action: #selector(writeTag))
         
         APIManager.shared.getProfileImage(twitterHandleModel: twitterProfile, isFullImage: true) { [weak self] updatedTwitterModelWithImage, error in
             guard let updatedModel = updatedTwitterModelWithImage, let newImage = updatedModel.image else {
@@ -59,5 +65,118 @@ class TagNFCViewController: UIViewController {
     private func setProfilePhoto(withImage image: UIImage) {
         imageView.image = image
         imageView.setNeedsDisplay()
+    }
+    
+    
+    // MARK: - Actions
+    @objc func writeTag() {
+        guard NFCNDEFReaderSession.readingAvailable else {
+            let alertController = UIAlertController(
+                title: "Scanning Not Supported",
+                message: "This device doesn't support tag scanning.",
+                preferredStyle: .alert
+            )
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        
+        readerSession = NFCNDEFReaderSession(delegate: self, queue: nil, invalidateAfterFirstRead: false)
+        readerSession?.alertMessage = "Hold your iPhone near a writable NFC tag to update."
+        readerSession?.begin()
+    }
+    
+    private func createURLPayload() -> NFCNDEFPayload? {
+        let twitterURL = URL(string: "https://twitter.com/\(twitterProfile.username)")
+        
+        os_log("url: %@", (twitterURL?.absoluteString)!)
+        
+        return NFCNDEFPayload.wellKnownTypeURIPayload(url: (twitterURL?.absoluteURL)!)
+    }
+}
+
+extension TagNFCViewController: NFCNDEFReaderSessionDelegate {
+    func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
+        
+    }
+    
+    func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
+        
+    }
+    
+    func tagRemovalDetect(_ tag: NFCNDEFTag) {
+        // In the tag removal procedure, you connect to the tag and query for
+        // its availability. You restart RF polling when the tag becomes
+        // unavailable; otherwise, wait for certain period of time and repeat
+        // availability checking.
+        self.readerSession?.connect(to: tag) { (error: Error?) in
+            if error != nil || !tag.isAvailable {
+                
+                os_log("Restart polling")
+                
+                self.readerSession?.restartPolling()
+                return
+            }
+            DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + .milliseconds(500), execute: {
+                self.tagRemovalDetect(tag)
+            })
+        }
+    }
+    
+    func readerSessionDidBecomeActive(_ session: NFCNDEFReaderSession) {
+        let textPayload = NFCNDEFPayload.wellKnownTypeTextPayload(
+            string: "Twitter Tag",
+            locale: Locale(identifier: "En")
+        )
+        let urlPayload = self.createURLPayload()
+        ndefMessage = NFCNDEFMessage(records: [urlPayload!, textPayload!])
+        os_log("MessageSize=%d", ndefMessage!.length)
+    }
+    
+    func readerSession(_ session: NFCNDEFReaderSession, didDetect tags: [NFCNDEFTag]) {
+        if tags.count > 1 {
+            session.alertMessage = "More than 1 tags found. Please present only 1 tag."
+            self.tagRemovalDetect(tags.first!)
+            return
+        }
+        
+        // You connect to the desired tag.
+        let tag = tags.first!
+        session.connect(to: tag) { (error: Error?) in
+            if error != nil {
+                session.restartPolling()
+                return
+            }
+            
+            // You then query the NDEF status of tag.
+            tag.queryNDEFStatus() { (status: NFCNDEFStatus, capacity: Int, error: Error?) in
+                if error != nil {
+                    session.invalidate(errorMessage: "Fail to determine NDEF status.  Please try again.")
+                    return
+                }
+                
+                if status == .readOnly {
+                    session.invalidate(errorMessage: "Tag is not writable.")
+                } else if status == .readWrite {
+                    if self.ndefMessage!.length > capacity {
+                        session.invalidate(errorMessage: "Tag capacity is too small.  Minimum size requirement is \(self.ndefMessage!.length) bytes.")
+                        return
+                    }
+                    
+                    // When a tag is read-writable and has sufficient capacity,
+                    // write an NDEF message to it.
+                    tag.writeNDEF(self.ndefMessage!) { (error: Error?) in
+                        if error != nil {
+                            session.invalidate(errorMessage: "Update tag failed. Please try again.")
+                        } else {
+                            session.alertMessage = "Update success!"
+                            session.invalidate()
+                        }
+                    }
+                } else {
+                    session.invalidate(errorMessage: "Tag is not NDEF formatted.")
+                }
+            }
+        }
     }
 }
