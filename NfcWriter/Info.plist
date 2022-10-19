@@ -23,8 +23,6 @@
 	<string>$(API_KEY_SECRET)</string>
 	<key>BEARER_TOKEN</key>
 	<string>$(BEARER_TOKEN)</string>
-	<key>IS_DEV</key>
-	<string>$(IS_DEV)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
