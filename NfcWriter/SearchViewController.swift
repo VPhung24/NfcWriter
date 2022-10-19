@@ -51,6 +51,12 @@ class SearchViewController: UIViewController {
         searchTableView.dataSource = dataSource
         searchTableView.tableHeaderView = searchBarController.searchBar
         
+        // hacky way of getting "x" clear button action
+        let searchTextField = searchBarController.searchBar.searchTextField
+        if let clearButton = searchTextField.value(forKey: "_clearButton") as? UIButton {
+            clearButton.addTarget(self, action: #selector(clearSearch), for: .touchUpInside)
+        }
+
         NSLayoutConstraint.activate([
             searchTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             searchTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -103,6 +109,11 @@ class SearchViewController: UIViewController {
                 self.dataSource.apply(currentSnapshot, animatingDifferences: true)
             }
         }
+    }
+    
+    @objc private func clearSearch() {
+        self.twitterHandles = []
+        self.applySnapshot(animated: true)
     }
 }
 
