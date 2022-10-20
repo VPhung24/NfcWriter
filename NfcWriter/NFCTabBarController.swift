@@ -21,10 +21,8 @@ class NFCTabBarController: UITabBarController {
     }
     
     private func configTabFor(viewController: UIViewController, withSystemImageName imageName: String) -> UIViewController {
-        let largerConfig = UIImage.SymbolConfiguration(pointSize: 50, weight: .bold, scale: .large)
-
         let vc = UINavigationController(rootViewController: viewController)
-        vc.tabBarItem.image = UIImage(systemName: imageName, withConfiguration: largerConfig)
+        vc.tabBarItem.image = UIImage(systemName: imageName)
         vc.tabBarController?.tabBar.backgroundColor = .clear
         vc.tabBarItem.badgeColor = .clear
         return vc
