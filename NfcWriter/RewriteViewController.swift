@@ -134,7 +134,7 @@ extension RewriteViewController: NFCTagReaderSessionDelegate {
         
         session.connect(to: tags.first!) { (error: Error?) in
             if error != nil {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "")
                 session.invalidate(errorMessage: "Connection error. Please try again.")
                 return
             }
