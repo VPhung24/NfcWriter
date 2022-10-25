@@ -17,6 +17,8 @@ class SearchViewController: UIViewController {
         let searchController = UISearchController()
         searchController.searchBar.placeholder = "search for twitter handle"
         searchController.searchBar.accessibilityTraits = .searchField
+        searchController.searchBar.searchBarStyle = .minimal
+        searchController.searchBar.backgroundColor = .systemBackground
         
         // dynamic text sizing per settings
         searchController.searchBar.searchTextField.adjustsFontForContentSizeCategory = true
@@ -34,6 +36,10 @@ class SearchViewController: UIViewController {
         let tableView: UITableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "twitter")
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .systemBackground
+        tableView.backgroundView = backgroundView
         return tableView
     }()
     
