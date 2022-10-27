@@ -9,8 +9,13 @@ import UIKit
 import Contacts
 import ContactsUI
 
+protocol MyContactViewControllerDelegate: AnyObject {
+    func dismissView()
+}
+
 class MyContactViewController: UIViewController {
     var shareContact: CNContact?
+    weak var delegate: MyContactViewControllerDelegate?
     
     let shareContactButton: UIButton = {
         let button = UIButton(frame: .zero)
@@ -23,29 +28,28 @@ class MyContactViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        #if DEBUG
+            print("App is in Debug mode")
+            UserDefaults.standard.removeObject(forKey: "contact")
+        #else
+            print("App is in production mode")
+        #endif
+        
         view.backgroundColor = .clear
         
-        let defaults = UserDefaults.standard
-        if let contact: CNContact = defaults.object(forKey: "contact") as? CNContact {
-            shareContact = contact
-            shareContactButton.setTitle("share contact", for: .normal)
-        } else {
-            shareContactButton.setTitle("create contact", for: .normal)
-            shareContactButton.addTarget(self, action: #selector(createContact), for: .touchUpInside)
-        }
+        setupContactSharing()
         
-        let modalBackgroundView = UIView(frame: .zero)
-        modalBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        modalBackgroundView.backgroundColor = .systemBackground
-        modalBackgroundView.layer.cornerRadius = 20
-        
-        self.view.addSubview(modalBackgroundView)
+        let modalBackgroundView: UIView = {
+            let view = UIView(frame: .zero)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.backgroundColor = .systemBackground
+            view.layer.cornerRadius = 20
+            return view
+        }()
         
         modalBackgroundView.addSubview(shareContactButton)
-        
-        let gestureReconizer = UIPanGestureRecognizer(target: self, action: #selector(didPanOnView))
-        
-        self.view.addGestureRecognizer(gestureReconizer)
+        self.view.addSubview(modalBackgroundView)
+        self.view.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(didGesture)))
         
         NSLayoutConstraint.activate([
             modalBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -59,10 +63,25 @@ class MyContactViewController: UIViewController {
         
     }
     
-    @objc func didPanOnView(_ sender: UIPanGestureRecognizer) {
-        DispatchQueue.main.async {
-            // todo: delegate pop vc
+    fileprivate func setupContactSharing() {
+        if let contact: CNContact = UserDefaults.standard.contact(forKey: "contact") {
+            shareContact = contact
+            shareContactButton.setTitle("share contact", for: .normal)
+            shareContactButton.addTarget(self, action: #selector(shareNfcContact), for: .touchUpInside)
+        } else {
+            shareContactButton.setTitle("create contact", for: .normal)
+            shareContactButton.addTarget(self, action: #selector(createContact), for: .touchUpInside)
         }
+    }
+    
+    @objc func didGesture(_ sender: UIGestureRecognizer) {
+        DispatchQueue.main.async {
+            self.delegate?.dismissView()
+        }
+    }
+    
+    @objc func shareNfcContact() {
+        print("nfc writing here")
     }
     
     @objc func createContact() {
@@ -75,8 +94,11 @@ class MyContactViewController: UIViewController {
 
 extension MyContactViewController: CNContactViewControllerDelegate {
     func contactViewController(_ viewController: CNContactViewController, didCompleteWith contact: CNContact?) {
+        guard let contact = contact else { return }
         self.shareContact = contact
         
-        // todo: save contact
+        UserDefaults.standard.setContact(contact, forKey: "contact")
+        
+        setupContactSharing()
     }
 }

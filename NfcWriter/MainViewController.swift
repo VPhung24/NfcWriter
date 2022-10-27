@@ -53,16 +53,18 @@ class MainViewController: UIViewController {
     }
     
     @objc private func twitterSelected() {
-        DispatchQueue.main.async {
-            let navigationController = UINavigationController(rootViewController: SearchViewController())
-            navigationController.view.backgroundColor = .clear
-            self.present(navigationController, animated: true)
-        }
+        self.presentNavController(withViewController: SearchViewController())
     }
     
     @objc private func contactSelected() {
+        let contactVC = MyContactViewController()
+        contactVC.delegate = self
+        self.presentNavController(withViewController: contactVC)
+    }
+    
+    private func presentNavController(withViewController vc: UIViewController) {
         DispatchQueue.main.async {
-            let navigationController = UINavigationController(rootViewController: MyContactViewController())
+            let navigationController = UINavigationController(rootViewController: vc)
             navigationController.view.backgroundColor = .clear
             self.present(navigationController, animated: true)
         }
@@ -89,5 +91,11 @@ enum NFCButtonStyle {
         case .contacts:
             return "contacts"
         }
+    }
+}
+
+extension MainViewController: MyContactViewControllerDelegate {
+    func dismissView() {
+        self.dismiss(animated: true)
     }
 }
