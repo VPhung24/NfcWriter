@@ -29,7 +29,8 @@ class TagNFCViewController: UIViewController {
         super.viewDidLoad()
         
         title = twitterProfile.username
-
+        view.backgroundColor = .systemBackground
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "write", style: .plain, target: self, action: #selector(writeTag))
         
         APIManager.shared.getProfileImage(twitterHandleModel: twitterProfile, isFullImage: true) { [weak self] updatedTwitterModelWithImage, error in
@@ -89,7 +90,6 @@ class TagNFCViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
-        navigationController?.popViewController(animated: false)
     }
     
     private func createURLPayload() -> NFCNDEFPayload? {

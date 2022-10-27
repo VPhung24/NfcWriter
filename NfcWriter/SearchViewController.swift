@@ -147,9 +147,10 @@ extension SearchViewController: UISearchResultsUpdating {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchBarController.isActive = false
-        
-        self.navigationController?.pushViewController(TagNFCViewController(twitterProfile: self.twitterHandles[indexPath.row]), animated: false)
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(TagNFCViewController(twitterProfile: self.twitterHandles[indexPath.row]), animated: true)
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
+        }
     }
 }
 

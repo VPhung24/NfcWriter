@@ -8,6 +8,8 @@
 	<string>$(API_KEY_SECRET)</string>
 	<key>BEARER_TOKEN</key>
 	<string>$(BEARER_TOKEN)</string>
+	<key>NSContactsUsageDescription</key>
+	<string>find contact to share</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
