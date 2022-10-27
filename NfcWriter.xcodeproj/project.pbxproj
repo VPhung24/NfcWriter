@@ -17,8 +17,6 @@
 		081AF87428FE08FF00425075 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87328FE08FF00425075 /* APIManager.swift */; };
 		081AF87B28FF1CBE00425075 /* EndpointManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87A28FF1CBE00425075 /* EndpointManager.swift */; };
 		081AF87D28FF1DCA00425075 /* TagNFCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87C28FF1DCA00425075 /* TagNFCViewController.swift */; };
-		0855DF492900A33B0025858B /* NFCTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0855DF482900A33B0025858B /* NFCTabBarController.swift */; };
-		0855DF4B2900A4F20025858B /* RewriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0855DF4A2900A4F20025858B /* RewriteViewController.swift */; };
 		0855DF532900C0FF0025858B /* NfcWriterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0855DF522900C0FF0025858B /* NfcWriterUITests.swift */; };
 		0855DF552900C0FF0025858B /* NfcWriterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0855DF542900C0FF0025858B /* NfcWriterUITestsLaunchTests.swift */; };
 		0855DF602900C7310025858B /* SearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0855DF5F2900C7310025858B /* SearchUITests.swift */; };
@@ -51,8 +49,6 @@
 		081AF87C28FF1DCA00425075 /* TagNFCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagNFCViewController.swift; sourceTree = "<group>"; };
 		081AF87F28FF3A2A00425075 /* CoreNFC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreNFC.framework; path = System/Library/Frameworks/CoreNFC.framework; sourceTree = SDKROOT; };
 		0855DF2E28FFB1E20025858B /* NfcWriter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NfcWriter.entitlements; sourceTree = "<group>"; };
-		0855DF482900A33B0025858B /* NFCTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCTabBarController.swift; sourceTree = "<group>"; };
-		0855DF4A2900A4F20025858B /* RewriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewriteViewController.swift; sourceTree = "<group>"; };
 		0855DF502900C0FF0025858B /* NfcWriterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NfcWriterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0855DF522900C0FF0025858B /* NfcWriterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NfcWriterUITests.swift; sourceTree = "<group>"; };
 		0855DF542900C0FF0025858B /* NfcWriterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NfcWriterUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -107,8 +103,6 @@
 				081AF85A28FDF71E00425075 /* SceneDelegate.swift */,
 				081AF85C28FDF71E00425075 /* SearchViewController.swift */,
 				081AF87C28FF1DCA00425075 /* TagNFCViewController.swift */,
-				0855DF482900A33B0025858B /* NFCTabBarController.swift */,
-				0855DF4A2900A4F20025858B /* RewriteViewController.swift */,
 				081AF86E28FDFC5800425075 /* Section.swift */,
 				081AF87028FDFD2700425075 /* TwitterHandleModel.swift */,
 				081AF87328FE08FF00425075 /* APIManager.swift */,
@@ -246,10 +240,8 @@
 				081AF85928FDF71E00425075 /* AppDelegate.swift in Sources */,
 				081AF86F28FDFC5800425075 /* Section.swift in Sources */,
 				081AF85B28FDF71E00425075 /* SceneDelegate.swift in Sources */,
-				0855DF492900A33B0025858B /* NFCTabBarController.swift in Sources */,
 				081AF87128FDFD2700425075 /* TwitterHandleModel.swift in Sources */,
 				081AF87D28FF1DCA00425075 /* TagNFCViewController.swift in Sources */,
-				0855DF4B2900A4F20025858B /* RewriteViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
