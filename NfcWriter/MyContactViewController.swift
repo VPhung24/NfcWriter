@@ -17,6 +17,8 @@ class MyContactViewController: UIViewController {
     var shareContact: CNContact?
     var contactVC: CNContactViewController?
     weak var delegate: MyContactViewControllerDelegate?
+    var tagManager: NFCTagManager?
+    var downloadURL: String?
     
     let shareContactButton: UIButton = {
         let button = UIButton(frame: .zero)
@@ -76,6 +78,8 @@ class MyContactViewController: UIViewController {
     
     @objc func shareNfcContact() {
         print("nfc writing here")
+        guard let downloadURL = downloadURL else { return }
+        tagManager = NFCTagManager(url: downloadURL)
     }
     
     @objc func createContact() {
@@ -121,6 +125,7 @@ extension MyContactViewController: CNContactViewControllerDelegate {
                         print(error ?? "error")
                         return
                     }
+                    self.downloadURL = downloadURL.absoluteString
                     print(downloadURL)
                 }
             }

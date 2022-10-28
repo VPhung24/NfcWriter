@@ -28,6 +28,7 @@
 		08EC1696290B67D000C26DC5 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 08EC1695290B67D000C26DC5 /* FirebaseStorageCombine-Community */; };
 		08EC1698290B6FA200C26DC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08EC1697290B6FA200C26DC5 /* GoogleService-Info.plist */; };
 		08EC169A290B7FE000C26DC5 /* FirebaseHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC1699290B7FE000C26DC5 /* FirebaseHelpers.swift */; };
+		08EC169E290B823B00C26DC5 /* NFCTagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC169D290B823B00C26DC5 /* NFCTagManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		08EC165E290B487200C26DC5 /* UserDefaultHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultHelpers.swift; sourceTree = "<group>"; };
 		08EC1697290B6FA200C26DC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		08EC1699290B7FE000C26DC5 /* FirebaseHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelpers.swift; sourceTree = "<group>"; };
+		08EC169D290B823B00C26DC5 /* NFCTagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCTagManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				08EC165C290B0ED300C26DC5 /* MyContactViewController.swift */,
 				08EC165E290B487200C26DC5 /* UserDefaultHelpers.swift */,
 				081AF87C28FF1DCA00425075 /* TagNFCViewController.swift */,
+				08EC169D290B823B00C26DC5 /* NFCTagManager.swift */,
 				081AF86E28FDFC5800425075 /* Section.swift */,
 				081AF87028FDFD2700425075 /* TwitterHandleModel.swift */,
 				081AF87328FE08FF00425075 /* APIManager.swift */,
@@ -270,6 +273,7 @@
 				081AF85928FDF71E00425075 /* AppDelegate.swift in Sources */,
 				081AF86F28FDFC5800425075 /* Section.swift in Sources */,
 				081AF85B28FDF71E00425075 /* SceneDelegate.swift in Sources */,
+				08EC169E290B823B00C26DC5 /* NFCTagManager.swift in Sources */,
 				08EC165B290AFDEB00C26DC5 /* MainViewController.swift in Sources */,
 				081AF87128FDFD2700425075 /* TwitterHandleModel.swift in Sources */,
 				081AF87D28FF1DCA00425075 /* TagNFCViewController.swift in Sources */,
