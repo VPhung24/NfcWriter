@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         window.makeKeyAndVisible()
         let rootViewController = UINavigationController(rootViewController: MainViewController())
-        
+
         window.rootViewController = rootViewController
     }
 
@@ -52,4 +52,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 }
-

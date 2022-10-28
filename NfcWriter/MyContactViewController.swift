@@ -19,7 +19,7 @@ class MyContactViewController: UIViewController {
     weak var delegate: MyContactViewControllerDelegate?
     var tagManager: NFCTagManager?
     var downloadURL: String?
-    
+
     let shareContactButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -28,10 +28,10 @@ class MyContactViewController: UIViewController {
         button.setTitleColor(.secondaryLabel, for: .normal)
         return button
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         #if DEBUG
             print("debug")
             UserDefaults.standard.removeObject(forKey: "contact")
@@ -39,9 +39,9 @@ class MyContactViewController: UIViewController {
             print("prod")
         #endif
         view.backgroundColor = .clear
-        
+
         setupContactSharing()
-        
+
         let modalBackgroundView: UIView = {
             let view = UIView(frame: .zero)
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -49,21 +49,21 @@ class MyContactViewController: UIViewController {
             view.layer.cornerRadius = 20
             return view
         }()
-        
+
         self.view.addSubview(modalBackgroundView)
         modalBackgroundView.addSubview(shareContactButton)
-        
+
         NSLayoutConstraint.activate([
             modalBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             modalBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             modalBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             modalBackgroundView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3),
-            
+
             shareContactButton.centerXAnchor.constraint(equalTo: modalBackgroundView.centerXAnchor),
-            shareContactButton.centerYAnchor.constraint(equalTo: modalBackgroundView.centerYAnchor),
+            shareContactButton.centerYAnchor.constraint(equalTo: modalBackgroundView.centerYAnchor)
         ])
     }
-    
+
     private func setupContactSharing() {
         if let contact: CNContact = shareContact ?? UserDefaults.standard.contact(forKey: "contact") {
             shareContact = contact
@@ -75,17 +75,17 @@ class MyContactViewController: UIViewController {
             shareContactButton.addTarget(self, action: #selector(createContact), for: .touchUpInside)
         }
     }
-    
+
     @objc func shareNfcContact() {
         print("nfc writing here")
         guard let downloadURL = downloadURL else { return }
         tagManager = NFCTagManager(url: downloadURL)
     }
-    
+
     @objc func createContact() {
         print("create contact")
         // todo: add animation to full screen white and then push
-        
+
         contactVC = contactVC ?? CNContactViewController(forNewContact: nil)
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(self.contactVC!, animated: true)
@@ -99,26 +99,26 @@ extension MyContactViewController: CNContactViewControllerDelegate {
         self.navigationController?.popViewController(animated: true)
         guard let contact = contact else { return }
         self.shareContact = contact
-        
+
         UserDefaults.standard.setContact(contact, forKey: "contact")
-        
+
         setupContactSharing()
-        
+
         uploadContact(contact)
     }
-    
+
     private func uploadContact(_ contact: CNContact) {
         do {
             let data: Data = try CNContactVCardSerialization.data(with: [contact])
 
             let fileRef = storageRef.child("contacts/\(UIDevice.current.identifierForVendor!.uuidString).vcf")
-            
+
             fileRef.putData(data, metadata: nil) { (metadata, error) in
                 guard metadata != nil else {
                     print(error ?? "error")
                     return
                 }
-                
+
                 fileRef.downloadURL { (url, error) in
                     guard let downloadURL = url else {
                         // Uh-oh, an error occurred!
@@ -133,5 +133,5 @@ extension MyContactViewController: CNContactViewControllerDelegate {
             print("error uploading contact")
         }
     }
-    
+
 }

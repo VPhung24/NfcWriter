@@ -91,3 +91,4 @@ fastlane/test_output
 iOSInjectionProject/
 NfcWriter/Config.xcconfig
 .DS_Store
+GoogleService-Info.plist

@@ -17,7 +17,7 @@ extension UserDefaults {
             print("error setting contact as user default")
         }
     }
-    
+
     func contact(forKey key: String) -> CNContact? {
         if let data: Data = UserDefaults.standard.object(forKey: key) as? Data {
             do {
