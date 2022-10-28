@@ -99,5 +99,34 @@ extension MyContactViewController: CNContactViewControllerDelegate {
         UserDefaults.standard.setContact(contact, forKey: "contact")
         
         setupContactSharing()
+        
+        uploadContact(contact)
     }
+    
+    private func uploadContact(_ contact: CNContact) {
+        do {
+            let data: Data = try CNContactVCardSerialization.data(with: [contact])
+
+            let fileRef = storageRef.child("contacts/\(UIDevice.current.identifierForVendor!.uuidString).vcf")
+            
+            fileRef.putData(data, metadata: nil) { (metadata, error) in
+                guard metadata != nil else {
+                    print(error ?? "error")
+                    return
+                }
+                
+                fileRef.downloadURL { (url, error) in
+                    guard let downloadURL = url else {
+                        // Uh-oh, an error occurred!
+                        print(error ?? "error")
+                        return
+                    }
+                    print(downloadURL)
+                }
+            }
+        } catch {
+            print("error uploading contact")
+        }
+    }
+    
 }

@@ -12,7 +12,7 @@ extension UserDefaults {
     func setContact(_ contact: CNContact, forKey key: String) {
         do {
             let data: Data = try CNContactVCardSerialization.data(with: [contact])
-            UserDefaults.standard.set(data, forKey: key)
+            UserDefaults.standard.set(data.first, forKey: key)
         } catch {
             print("error setting contact as user default")
         }
