@@ -66,7 +66,7 @@ class MyContactViewController: UIViewController {
         if let contact: CNContact = shareContact ?? UserDefaults.standard.contact(forKey: "contact") {
             shareContact = contact
             shareContactButton.removeTarget(self, action: #selector(createContact), for: .touchUpInside)
-            shareContactButton.setTitle("edit contact", for: .normal)
+            shareContactButton.setTitle("share contact", for: .normal)
             shareContactButton.addTarget(self, action: #selector(shareNfcContact), for: .touchUpInside)
         } else {
             shareContactButton.setTitle("create contact", for: .normal)
@@ -92,6 +92,7 @@ class MyContactViewController: UIViewController {
 
 extension MyContactViewController: CNContactViewControllerDelegate {
     func contactViewController(_ viewController: CNContactViewController, didCompleteWith contact: CNContact?) {
+        self.navigationController?.popViewController(animated: true)
         guard let contact = contact else { return }
         self.shareContact = contact
         
