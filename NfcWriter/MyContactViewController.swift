@@ -15,13 +15,15 @@ protocol MyContactViewControllerDelegate: AnyObject {
 
 class MyContactViewController: UIViewController {
     var shareContact: CNContact?
+    var contactVC: CNContactViewController?
     weak var delegate: MyContactViewControllerDelegate?
     
     let shareContactButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 20
+        button.contentEdgeInsets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
+        button.setTitleColor(.secondaryLabel, for: .normal)
         return button
     }()
     
@@ -29,12 +31,11 @@ class MyContactViewController: UIViewController {
         super.viewDidLoad()
         
         #if DEBUG
-            print("App is in Debug mode")
+            print("debug")
             UserDefaults.standard.removeObject(forKey: "contact")
         #else
-            print("App is in production mode")
+            print("prod")
         #endif
-        
         view.backgroundColor = .clear
         
         setupContactSharing()
@@ -47,9 +48,8 @@ class MyContactViewController: UIViewController {
             return view
         }()
         
-        modalBackgroundView.addSubview(shareContactButton)
         self.view.addSubview(modalBackgroundView)
-        self.view.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(didGesture)))
+        modalBackgroundView.addSubview(shareContactButton)
         
         NSLayoutConstraint.activate([
             modalBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -60,23 +60,17 @@ class MyContactViewController: UIViewController {
             shareContactButton.centerXAnchor.constraint(equalTo: modalBackgroundView.centerXAnchor),
             shareContactButton.centerYAnchor.constraint(equalTo: modalBackgroundView.centerYAnchor),
         ])
-        
     }
     
-    fileprivate func setupContactSharing() {
-        if let contact: CNContact = UserDefaults.standard.contact(forKey: "contact") {
+    private func setupContactSharing() {
+        if let contact: CNContact = shareContact ?? UserDefaults.standard.contact(forKey: "contact") {
             shareContact = contact
-            shareContactButton.setTitle("share contact", for: .normal)
+            shareContactButton.removeTarget(self, action: #selector(createContact), for: .touchUpInside)
+            shareContactButton.setTitle("edit contact", for: .normal)
             shareContactButton.addTarget(self, action: #selector(shareNfcContact), for: .touchUpInside)
         } else {
             shareContactButton.setTitle("create contact", for: .normal)
             shareContactButton.addTarget(self, action: #selector(createContact), for: .touchUpInside)
-        }
-    }
-    
-    @objc func didGesture(_ sender: UIGestureRecognizer) {
-        DispatchQueue.main.async {
-            self.delegate?.dismissView()
         }
     }
     
@@ -85,10 +79,14 @@ class MyContactViewController: UIViewController {
     }
     
     @objc func createContact() {
+        print("create contact")
         // todo: add animation to full screen white and then push
-        let contact = CNContactViewController(forNewContact: nil)
-        self.navigationController?.pushViewController(contact, animated: true)
-        contact.delegate = self
+        
+        contactVC = contactVC ?? CNContactViewController(forNewContact: nil)
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(self.contactVC!, animated: true)
+        }
+        contactVC?.delegate = self
     }
 }
 
