@@ -73,7 +73,7 @@ class MainViewController: UIViewController {
     }
 }
 
-enum NFCButtonStyle {
+enum NFCButtonStyle: String {
     case twitter
     case contacts
 
@@ -83,15 +83,6 @@ enum NFCButtonStyle {
             return UIColor(red: 29/255, green: 161/255, blue: 242/255, alpha: 1.0)
         case .contacts:
             return UIColor(red: 175/255, green: 135/255, blue: 74/255, alpha: 1.0)
-        }
-    }
-
-    func title() -> String {
-        switch self {
-        case .twitter:
-            return "twitter"
-        case .contacts:
-            return "contacts"
         }
     }
 
