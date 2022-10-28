@@ -91,6 +91,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		080ABF63290BAAF30068BA7E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				08EC165A290AFDEB00C26DC5 /* MainViewController.swift */,
+				081AF85C28FDF71E00425075 /* SearchViewController.swift */,
+				081AF87C28FF1DCA00425075 /* TagNFCViewController.swift */,
+				08EC165C290B0ED300C26DC5 /* MyContactViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		081AF84C28FDF71E00425075 = {
 			isa = PBXGroup;
 			children = (
@@ -117,12 +128,9 @@
 				0855DF2E28FFB1E20025858B /* NfcWriter.entitlements */,
 				081AF85828FDF71E00425075 /* AppDelegate.swift */,
 				081AF85A28FDF71E00425075 /* SceneDelegate.swift */,
-				081AF85C28FDF71E00425075 /* SearchViewController.swift */,
-				08EC165A290AFDEB00C26DC5 /* MainViewController.swift */,
+				080ABF63290BAAF30068BA7E /* Views */,
 				08EC1699290B7FE000C26DC5 /* FirebaseHelpers.swift */,
-				08EC165C290B0ED300C26DC5 /* MyContactViewController.swift */,
 				08EC165E290B487200C26DC5 /* UserDefaultHelpers.swift */,
-				081AF87C28FF1DCA00425075 /* TagNFCViewController.swift */,
 				08EC169D290B823B00C26DC5 /* NFCTagManager.swift */,
 				081AF86E28FDFC5800425075 /* Section.swift */,
 				081AF87028FDFD2700425075 /* TwitterHandleModel.swift */,
