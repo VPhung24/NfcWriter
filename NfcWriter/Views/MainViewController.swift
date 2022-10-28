@@ -16,17 +16,16 @@ class MainViewController: UIViewController {
         stackView.distribution = .fillEqually
         stackView.axis = .vertical
         stackView.spacing = 20
-
         return stackView
     }()
 
-    lazy var twitterButton = {
+    lazy var twitterButton: UIButton = {
         let button = initButton(withStyle: .twitter)
         button.addTarget(self, action: #selector(twitterSelected), for: .touchUpInside)
         return button
     }()
 
-    lazy var contactsButton = {
+    lazy var contactsButton: UIButton = {
         let button = initButton(withStyle: .contacts)
         button.addTarget(self, action: #selector(contactSelected), for: .touchUpInside)
         return button
@@ -45,10 +44,13 @@ class MainViewController: UIViewController {
     }
 
     private func initButton(withStyle style: NFCButtonStyle) -> UIButton {
-        let button = UIButton(frame: .zero)
+        let button = UIButton(type: .roundedRect)
         button.backgroundColor = style.backgroundColor()
-        button.setTitle(style.title(), for: .normal)
         button.layer.cornerRadius = 20
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentHorizontalAlignment = .left
+        button.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
+        button.setImage(style.image(), for: .normal)
         return button
     }
 
@@ -78,9 +80,9 @@ enum NFCButtonStyle {
     func backgroundColor() -> UIColor {
         switch self {
         case .twitter:
-            return .blue
+            return UIColor(red: 29/255, green: 161/255, blue: 242/255, alpha: 1.0)
         case .contacts:
-            return .gray
+            return UIColor(red: 175/255, green: 135/255, blue: 74/255, alpha: 1.0)
         }
     }
 
@@ -90,6 +92,16 @@ enum NFCButtonStyle {
             return "twitter"
         case .contacts:
             return "contacts"
+        }
+    }
+
+    func image() -> UIImage {
+        switch self {
+        case .twitter:
+            return UIImage(named: "twitter_white_logo")!.withRenderingMode(.alwaysOriginal)
+        case .contacts:
+            return UIImage(systemName: "person.crop.square.filled.and.at.rectangle.fill",
+                           withConfiguration: UIImage.SymbolConfiguration(pointSize: 300, weight: .bold, scale: .large))!.withTintColor(.white).withRenderingMode(.alwaysOriginal)
         }
     }
 }
