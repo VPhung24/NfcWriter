@@ -11,36 +11,48 @@ import ContactsUI
 
 protocol MyContactViewControllerDelegate: AnyObject {
     func dismissView()
+    func editContact()
 }
 
 class MyContactViewController: UIViewController {
-    var shareContact: CNContact?
-    var contactVC: CNContactViewController?
     weak var delegate: MyContactViewControllerDelegate?
     var tagManager: NFCTagManager?
-    var downloadURL: String?
+    var buttonStackView: UIStackView?
 
-    let shareContactButton: UIButton = {
-        let button = UIButton(frame: .zero)
-        button.translatesAutoresizingMaskIntoConstraints = false
+    lazy var shareButton: UIButton = {
+        let button = UIButton(type: .roundedRect)
+        button.backgroundColor = NFCButtonStyle.share.backgroundColor()
         button.layer.cornerRadius = 20
-        button.contentEdgeInsets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
-        button.setTitleColor(.secondaryLabel, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentHorizontalAlignment = .center
+        button.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
+        button.setImage(NFCButtonStyle.share.image(), for: .normal)
+        button.addTarget(self, action: #selector(shareNfcContact), for: .touchUpInside)
+        return button
+    }()
+
+    lazy var editButton: UIButton = {
+        let button = UIButton(type: .roundedRect)
+        button.backgroundColor = NFCButtonStyle.contacts.backgroundColor()
+        button.layer.cornerRadius = 20
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentHorizontalAlignment = .center
+        button.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
+        button.setImage(NFCButtonStyle.contacts.image(), for: .normal)
+        button.addTarget(self, action: #selector(editContact), for: .touchUpInside)
         return button
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        #if DEBUG
-            print("debug")
-            UserDefaults.standard.removeObject(forKey: "contact")
-        #else
-            print("prod")
-        #endif
         view.backgroundColor = .clear
 
-        setupContactSharing()
+        buttonStackView = UIStackView(frame: CGRect(x: 20, y: 20, width: view.bounds.width - 40, height: (UIScreen.main.bounds.height / 3) - 40))
+        buttonStackView!.alignment = .fill
+        buttonStackView!.distribution = .fillEqually
+        buttonStackView!.axis = .horizontal
+        buttonStackView!.spacing = 20
 
         let modalBackgroundView: UIView = {
             let view = UIView(frame: .zero)
@@ -51,7 +63,10 @@ class MyContactViewController: UIViewController {
         }()
 
         self.view.addSubview(modalBackgroundView)
-        modalBackgroundView.addSubview(shareContactButton)
+        modalBackgroundView.addSubview(buttonStackView!)
+
+        buttonStackView!.addArrangedSubview(shareButton)
+        buttonStackView!.addArrangedSubview(editButton)
 
         NSLayoutConstraint.activate([
             modalBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -59,79 +74,28 @@ class MyContactViewController: UIViewController {
             modalBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             modalBackgroundView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3),
 
-            shareContactButton.centerXAnchor.constraint(equalTo: modalBackgroundView.centerXAnchor),
-            shareContactButton.centerYAnchor.constraint(equalTo: modalBackgroundView.centerYAnchor)
+            buttonStackView!.centerXAnchor.constraint(equalTo: modalBackgroundView.centerXAnchor),
+            buttonStackView!.centerYAnchor.constraint(equalTo: modalBackgroundView.centerYAnchor)
         ])
-    }
-
-    private func setupContactSharing() {
-        if let contact: CNContact = shareContact ?? UserDefaults.standard.contact(forKey: "contact") {
-            shareContact = contact
-            shareContactButton.removeTarget(self, action: #selector(createContact), for: .touchUpInside)
-            shareContactButton.setTitle("share contact", for: .normal)
-            shareContactButton.addTarget(self, action: #selector(shareNfcContact), for: .touchUpInside)
-        } else {
-            shareContactButton.setTitle("create contact", for: .normal)
-            shareContactButton.addTarget(self, action: #selector(createContact), for: .touchUpInside)
-        }
     }
 
     @objc func shareNfcContact() {
         print("nfc writing here")
-        guard let downloadURL = downloadURL else { return }
-        tagManager = NFCTagManager(url: downloadURL)
-    }
+        let fileRef = storageRef.child("contacts/\(UIDevice.current.identifierForVendor!.uuidString).vcf")
 
-    @objc func createContact() {
-        print("create contact")
-        // todo: add animation to full screen white and then push
+        fileRef.getData(maxSize: 500) { thefile, _ in
+            guard thefile != nil else { return }
 
-        contactVC = contactVC ?? CNContactViewController(forNewContact: nil)
-        DispatchQueue.main.async {
-            self.navigationController?.pushViewController(self.contactVC!, animated: true)
-        }
-        contactVC?.delegate = self
-    }
-}
+            fileRef.downloadURL { contactURL, _ in
+                guard let contactURL = contactURL else { return }
 
-extension MyContactViewController: CNContactViewControllerDelegate {
-    func contactViewController(_ viewController: CNContactViewController, didCompleteWith contact: CNContact?) {
-        self.navigationController?.popViewController(animated: true)
-        guard let contact = contact else { return }
-        self.shareContact = contact
-
-        UserDefaults.standard.setContact(contact, forKey: "contact")
-
-        setupContactSharing()
-
-        uploadContact(contact)
-    }
-
-    private func uploadContact(_ contact: CNContact) {
-        do {
-            let data: Data = try CNContactVCardSerialization.data(with: [contact])
-
-            let fileRef = storageRef.child("contacts/\(UIDevice.current.identifierForVendor!.uuidString).vcf")
-
-            fileRef.putData(data, metadata: nil) { (metadata, error) in
-                guard metadata != nil else {
-                    print(error ?? "error")
-                    return
-                }
-
-                fileRef.downloadURL { (url, error) in
-                    guard let downloadURL = url else {
-                        // Uh-oh, an error occurred!
-                        print(error ?? "error")
-                        return
-                    }
-                    self.downloadURL = downloadURL.absoluteString
-                    print(downloadURL)
-                }
+                self.tagManager = NFCTagManager(url: contactURL.absoluteString)
             }
-        } catch {
-            print("error uploading contact")
         }
+    }
+
+    @objc func editContact() {
+        delegate?.editContact()
     }
 
 }
