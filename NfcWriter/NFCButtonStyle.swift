@@ -38,7 +38,7 @@ enum NFCButtonStyle: String {
             return UIImage(systemName: "iphone.homebutton.radiowaves.left.and.right", pointSize: 60).withTintColor(.white).withRenderingMode(.alwaysOriginal)
         }
     }
-    
+
     func accessibilityLabel() -> String {
         switch self {
         case .twitter:
@@ -51,7 +51,7 @@ enum NFCButtonStyle: String {
             return "write to nfc"
         }
     }
-    
+
     func accessibilityHint() -> String {
         switch self {
         case .twitter:
