@@ -35,7 +35,33 @@ enum NFCButtonStyle: String {
         case .share:
             return UIImage(systemName: "square.and.arrow.up.fill", pointSize: 60).withTintColor(.white).withRenderingMode(.alwaysOriginal)
         case .writeNfc:
-            return UIImage(systemName: "iphone.homebutton.radiowaves.left.and.right", pointSize: 60).withTintColor(.white).withRenderingMode(.alwaysOriginal)            
+            return UIImage(systemName: "iphone.homebutton.radiowaves.left.and.right", pointSize: 60).withTintColor(.white).withRenderingMode(.alwaysOriginal)
+        }
+    }
+    
+    func accessibilityLabel() -> String {
+        switch self {
+        case .twitter:
+            return "twitter"
+        case .contacts:
+            return "contact"
+        case .share:
+            return "share"
+        case .writeNfc:
+            return "write to nfc"
+        }
+    }
+    
+    func accessibilityHint() -> String {
+        switch self {
+        case .twitter:
+            return "find twitter to write to nfc"
+        case .contacts:
+            return "write contact to nfc"
+        case .share:
+            return "share contact"
+        case .writeNfc:
+            return "write to nfc"
         }
     }
 }
@@ -55,5 +81,7 @@ extension UIButton {
         self.contentHorizontalAlignment = .center
         self.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
         self.setImage(buttonStyle.image(), for: .normal)
+        self.titleLabel?.adjustsFontForContentSizeCategory = true
+        self.imageView?.adjustsImageSizeForAccessibilityContentSizeCategory = true
     }
 }

@@ -26,10 +26,15 @@ class MyContactViewController: UIViewController {
 
         let tagNfcButton = UIButton(buttonStyle: .writeNfc)
         tagNfcButton.addTarget(self, action: #selector(writeNFC), for: .touchUpInside)
-
+        tagNfcButton.accessibilityLabel = NFCButtonStyle.writeNfc.accessibilityLabel()
+        tagNfcButton.accessibilityHint = NFCButtonStyle.writeNfc.accessibilityHint()
+        
         let editButton = UIButton(buttonStyle: .contacts)
         editButton.addTarget(self, action: #selector(editContact), for: .touchUpInside)
-
+        editButton.accessibilityLabel = NFCButtonStyle.contacts.accessibilityLabel()
+        editButton.accessibilityHint = NFCButtonStyle.contacts.accessibilityHint()
+        
+        
         let buttonStackView = UIStackView(frame: CGRect(x: 20, y: 20, width: view.bounds.width - 40, height: (UIScreen.main.bounds.height / 3) - 40), forAxis: .horizontal)
 
         let modalBackgroundView = UIView(frame: .zero)
