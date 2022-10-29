@@ -10,17 +10,17 @@ import UIKit
 
 class APIManager {
     static let shared = APIManager()
-    
+
     // force using shared instance
     private init() {}
-    
+
     private let twitterAPIURL = "https://api.twitter.com/"
-    
+
     // MARK: - API Calls
     func getProfileImage(twitterHandleModel: TwitterHandleModel, isFullImage: Bool = false, completionHandler: @escaping (TwitterHandleModel?, Error?) -> Void) {
         let baseURL: String = isFullImage ? twitterHandleModel.profileImageURL.replacingOccurrences(of: "_normal", with: "") : twitterHandleModel.profileImageURL
-        let urlRequest: URLRequest = networkRequest(baseURL: baseURL, endpoint: TwitterAPIEndpoint.GetProfilePhoto)
-        networkTask(request: urlRequest, endpoint: TwitterAPIEndpoint.GetProfilePhoto) { (response: Data?, error) in
+        let urlRequest: URLRequest = networkRequest(baseURL: baseURL, endpoint: TwitterAPIEndpoint.getProfilePhoto)
+        networkTask(request: urlRequest, endpoint: TwitterAPIEndpoint.getProfilePhoto) { (response: Data?, _) in
             if let data = response, let image = UIImage(data: data) {
                 twitterHandleModel.image = image
                 completionHandler(twitterHandleModel, nil)
@@ -29,19 +29,19 @@ class APIManager {
             completionHandler(nil, APIError.imageError)
         }
     }
-    
+
     func searchforTwitterHandle(forString input: String, completionHandler: @escaping ([TwitterHandleModel]?, Error?) -> Void) {
         let parameters: [String: Any] = ["q": input, "page": "1", "count": "10"]
-        
+
         guard let bearerToken: String = Bundle.main.infoDictionary?["BEARER_TOKEN"] as? String else { return }
         let header: [String: String] = ["Authorization": bearerToken]
-        
-        let urlRequest: URLRequest = networkRequest(baseURL: twitterAPIURL, endpoint: TwitterAPIEndpoint.GetHandlesForString, parameters: parameters, headers: header)
-        networkTask(request: urlRequest, endpoint: TwitterAPIEndpoint.GetHandlesForString) { (response: [TwitterHandleModel]?, error) in
+
+        let urlRequest: URLRequest = networkRequest(baseURL: twitterAPIURL, endpoint: TwitterAPIEndpoint.getHandlesForString, parameters: parameters, headers: header)
+        networkTask(request: urlRequest, endpoint: TwitterAPIEndpoint.getHandlesForString) { (response: [TwitterHandleModel]?, error) in
             completionHandler(response, error)
         }
     }
-    
+
     // MARK: - Networking
     func networkRequest(baseURL: String, endpoint: Endpoint, parameters: [String: Any]? = nil, headers: [String: String]? = nil) -> URLRequest {
         var components = URLComponents(string: baseURL + endpoint.path)!
@@ -51,10 +51,10 @@ class APIManager {
         components.queryItems = parameters.map {
             URLQueryItem(name: $0, value: "\($1)")
         }
-        
+
         return requestBuilder(url: components.url!, endpoint: endpoint, headers: headers)
     }
-    
+
     func requestBuilder(url: URL, endpoint: Endpoint, headers: [String: String]? = nil) -> URLRequest {
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = endpoint.method.rawValue
@@ -63,20 +63,19 @@ class APIManager {
         }
         return request as URLRequest
     }
-    
+
     func networkTask<T: Codable>(request: URLRequest, endpoint: Endpoint, completionHandler: @escaping (T?, Error?) -> Void) {
         let session: URLSession = URLSession.shared
-        
-        let task = session.dataTask(with: request) { data, response, error in
+
+        let task = session.dataTask(with: request) { data, _, error in
             guard let responseData = data, error == nil else {
                 completionHandler(nil, error)
                 return
             }
-            
+
             switch endpoint {
-            case TwitterAPIEndpoint.GetProfilePhoto:
+            case TwitterAPIEndpoint.getProfilePhoto:
                 completionHandler(responseData as? T, nil)
-                break
             default:
                 let decoder = JSONDecoder()
                 do {
@@ -86,7 +85,7 @@ class APIManager {
                     completionHandler(nil, error)
                 }
             }
-            
+
         }
         task.resume()
     }

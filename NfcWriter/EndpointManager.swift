@@ -15,24 +15,22 @@ enum Method: String {
 protocol Endpoint {
     var path: String { get }
     var method: Method { get }
-    
 }
 
 // MARK: - TwitterAPIEndpoint
 enum TwitterAPIEndpoint: Endpoint {
-    case GetInfoForHandle, GetHandlesForString, GetProfilePhoto
-    
+    case getInfoForHandle, getHandlesForString, getProfilePhoto
     var path: String {
         switch self {
-        case .GetInfoForHandle:
+        case .getInfoForHandle:
             return "2/users/by"
-        case .GetHandlesForString:
+        case .getHandlesForString:
             return "1.1/users/search.json"
         default:
             return ""
         }
     }
-    
+
     var method: Method {
         switch self {
         default:
