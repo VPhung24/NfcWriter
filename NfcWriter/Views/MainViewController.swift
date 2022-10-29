@@ -17,8 +17,9 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "write nfc"
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        view.backgroundColor = .systemBackground
+
+        navigationItem.titleView = initTitleLabel()
 
         let twitterButton = UIButton(buttonStyle: .twitter)
         twitterButton.addTarget(self, action: #selector(twitterSelected), for: .touchUpInside)
@@ -103,6 +104,25 @@ class MainViewController: UIViewController {
         } catch {
             print("error uploading contact")
         }
+    }
+
+    private func initTitleLabel() -> UIView {
+        let titleView: UIStackView = UIStackView(frame: .zero, forAxis: .horizontal)
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+        titleView.spacing = 0
+
+        let iphoneImageView = UIImageView(image: UIImage(systemName: "iphone", pointSize: UIFont.systemFontSize).withTintColor(.label).withRenderingMode(.alwaysOriginal))
+        iphoneImageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
+        iphoneImageView.accessibilityLabel = "iphone"
+
+        let waveImageView = UIImageView(image: UIImage(systemName: "wave.3.forward", pointSize: UIFont.systemFontSize).withTintColor(.label).withRenderingMode(.alwaysOriginal))
+        waveImageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
+        waveImageView.accessibilityLabel = "writes nfcs"
+
+        titleView.addArrangedSubview(iphoneImageView)
+        titleView.addArrangedSubview(waveImageView)
+
+        return titleView
     }
 }
 
