@@ -11,6 +11,7 @@ enum NFCButtonStyle: String {
     case twitter
     case contacts
     case share
+    case writeNfc
 
     func backgroundColor() -> UIColor {
         switch self {
@@ -20,6 +21,8 @@ enum NFCButtonStyle: String {
             return UIColor(red: 175/255, green: 135/255, blue: 74/255, alpha: 1.0)
         case .share:
             return .red
+        case .writeNfc:
+            return .lightGray
         }
     }
 
@@ -31,6 +34,8 @@ enum NFCButtonStyle: String {
             return UIImage(systemName: "person.crop.square.filled.and.at.rectangle.fill", pointSize: 60).withTintColor(.white).withRenderingMode(.alwaysOriginal)
         case .share:
             return UIImage(systemName: "square.and.arrow.up.fill", pointSize: 60).withTintColor(.white).withRenderingMode(.alwaysOriginal)
+        case .writeNfc:
+            return UIImage(systemName: "iphone.homebutton.radiowaves.left.and.right", pointSize: 60).withTintColor(.white).withRenderingMode(.alwaysOriginal)            
         }
     }
 }

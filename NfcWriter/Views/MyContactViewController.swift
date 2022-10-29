@@ -24,8 +24,8 @@ class MyContactViewController: UIViewController {
 
         view.backgroundColor = .clear
 
-        let shareButton = UIButton(buttonStyle: .share)
-        shareButton.addTarget(self, action: #selector(shareNfcContact), for: .touchUpInside)
+        let tagNfcButton = UIButton(buttonStyle: .writeNfc)
+        tagNfcButton.addTarget(self, action: #selector(writeNFC), for: .touchUpInside)
 
         let editButton = UIButton(buttonStyle: .contacts)
         editButton.addTarget(self, action: #selector(editContact), for: .touchUpInside)
@@ -40,7 +40,7 @@ class MyContactViewController: UIViewController {
         self.view.addSubview(modalBackgroundView)
         modalBackgroundView.addSubview(buttonStackView)
 
-        buttonStackView.addArrangedSubview(shareButton)
+        buttonStackView.addArrangedSubview(tagNfcButton)
         buttonStackView.addArrangedSubview(editButton)
 
         NSLayoutConstraint.activate([
@@ -54,7 +54,7 @@ class MyContactViewController: UIViewController {
         ])
     }
 
-    @objc func shareNfcContact() {
+    @objc func writeNFC() {
         print("nfc writing here")
         let fileRef = storageRef.child("contacts/\(UIDevice.current.identifierForVendor!.uuidString).vcf")
 
