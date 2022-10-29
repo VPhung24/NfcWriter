@@ -8,6 +8,7 @@
 import UIKit
 import Contacts
 import ContactsUI
+import CoreNFC
 
 protocol MyContactViewControllerDelegate: AnyObject {
     func dismissView()
@@ -17,33 +18,24 @@ protocol MyContactViewControllerDelegate: AnyObject {
 class MyContactViewController: UIViewController {
     weak var delegate: MyContactViewControllerDelegate?
     var tagManager: NFCTagManager?
-    
-
-    lazy var shareButton: UIButton = {
-        let button = UIButton(buttonStyle: .share)
-        button.addTarget(self, action: #selector(shareNfcContact), for: .touchUpInside)
-        return button
-    }()
-
-    lazy var editButton: UIButton = {
-        let button = UIButton(buttonStyle: .contacts)
-        button.addTarget(self, action: #selector(editContact), for: .touchUpInside)
-        return button
-    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .clear
+
+        let shareButton = UIButton(buttonStyle: .share)
+        shareButton.addTarget(self, action: #selector(shareNfcContact), for: .touchUpInside)
+
+        let editButton = UIButton(buttonStyle: .contacts)
+        editButton.addTarget(self, action: #selector(editContact), for: .touchUpInside)
+
         let buttonStackView = UIStackView(frame: CGRect(x: 20, y: 20, width: view.bounds.width - 40, height: (UIScreen.main.bounds.height / 3) - 40), forAxis: .horizontal)
-            
-        let modalBackgroundView: UIView = {
-            let view = UIView(frame: .zero)
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.backgroundColor = .systemBackground
-            view.layer.cornerRadius = 20
-            return view
-        }()
+
+        let modalBackgroundView = UIView(frame: .zero)
+        modalBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        modalBackgroundView.backgroundColor = .systemBackground
+        modalBackgroundView.layer.cornerRadius = 20
 
         self.view.addSubview(modalBackgroundView)
         modalBackgroundView.addSubview(buttonStackView)
@@ -72,6 +64,17 @@ class MyContactViewController: UIViewController {
             fileRef.downloadURL { contactURL, _ in
                 guard let contactURL = contactURL else { return }
 
+                guard NFCNDEFReaderSession.readingAvailable else {
+                    let alertController = UIAlertController(
+                        title: "Scanning Not Supported",
+                        message: "This device doesn't support tag scanning.",
+                        preferredStyle: .alert
+                    )
+                    alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
+                    return
+                }
+
                 self.tagManager = NFCTagManager(url: contactURL.absoluteString)
             }
         }
@@ -80,5 +83,4 @@ class MyContactViewController: UIViewController {
     @objc func editContact() {
         delegate?.editContact()
     }
-
 }

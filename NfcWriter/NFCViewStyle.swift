@@ -10,12 +10,9 @@ import UIKit
 extension UIStackView {
     convenience init(frame: CGRect, forAxis axix: NSLayoutConstraint.Axis) {
         self.init(frame: frame)
-
-            self.alignment = .fill
-            self.distribution = .fillEqually
-            self.axis = axix
-            self.spacing = 20
-
-        
+        self.alignment = .fill
+        self.distribution = .fillEqually
+        self.axis = axix
+        self.spacing = 20
     }
 }

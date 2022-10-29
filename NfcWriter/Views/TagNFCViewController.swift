@@ -7,7 +7,6 @@
 
 import UIKit
 import CoreNFC
-import os
 
 class TagNFCViewController: UIViewController {
     let twitterProfile: TwitterHandleModel
@@ -87,5 +86,4 @@ class TagNFCViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
-
 }

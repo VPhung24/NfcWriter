@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		080ABF62290B9CAF0068BA7E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 080ABF61290B9CAF0068BA7E /* GoogleService-Info.plist */; };
 		080ABF65290C8E5D0068BA7E /* NFCButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ABF64290C8E5D0068BA7E /* NFCButtonStyle.swift */; };
-		080ABF67290CAA1B0068BA7E /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ABF66290CAA1B0068BA7E /* DummyViewController.swift */; };
 		080ABF69290CC2FB0068BA7E /* NFCViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ABF68290CC2FB0068BA7E /* NFCViewStyle.swift */; };
 		081AF85928FDF71E00425075 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF85828FDF71E00425075 /* AppDelegate.swift */; };
 		081AF85B28FDF71E00425075 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF85A28FDF71E00425075 /* SceneDelegate.swift */; };
@@ -47,7 +46,6 @@
 /* Begin PBXFileReference section */
 		080ABF61290B9CAF0068BA7E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		080ABF64290C8E5D0068BA7E /* NFCButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCButtonStyle.swift; sourceTree = "<group>"; };
-		080ABF66290CAA1B0068BA7E /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		080ABF68290CC2FB0068BA7E /* NFCViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCViewStyle.swift; sourceTree = "<group>"; };
 		081AF85528FDF71E00425075 /* NfcWriter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NfcWriter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		081AF85828FDF71E00425075 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,7 +102,6 @@
 				081AF85C28FDF71E00425075 /* SearchViewController.swift */,
 				081AF87C28FF1DCA00425075 /* TagNFCViewController.swift */,
 				08EC165C290B0ED300C26DC5 /* MyContactViewController.swift */,
-				080ABF66290CAA1B0068BA7E /* DummyViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -316,7 +313,6 @@
 				08EC169E290B823B00C26DC5 /* NFCTagManager.swift in Sources */,
 				08EC165B290AFDEB00C26DC5 /* MainViewController.swift in Sources */,
 				081AF87128FDFD2700425075 /* TwitterHandleModel.swift in Sources */,
-				080ABF67290CAA1B0068BA7E /* DummyViewController.swift in Sources */,
 				081AF87D28FF1DCA00425075 /* TagNFCViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,20 +13,19 @@ import nanopb
 
 class MainViewController: UIViewController {
     var contact: CNContact?
-    var downloadURL: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "write nfc"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        
+
         let twitterButton = UIButton(buttonStyle: .twitter)
         twitterButton.addTarget(self, action: #selector(twitterSelected), for: .touchUpInside)
-        
+
         let contactsButton = UIButton(buttonStyle: .contacts)
         contactsButton.addTarget(self, action: #selector(contactSelected), for: .touchUpInside)
-        
+
         let buttonStackView = UIStackView(frame: CGRect(x: 10, y: (view.bounds.height - 300) / 2, width: view.bounds.width - 20, height: 300), forAxis: .vertical)
 
         buttonStackView.addArrangedSubview(twitterButton)
@@ -34,7 +33,7 @@ class MainViewController: UIViewController {
 
         self.view.addSubview(buttonStackView)
     }
-    
+
     @objc private func twitterSelected() {
         self.presentNavController(withViewController: SearchViewController())
     }
@@ -89,13 +88,12 @@ class MainViewController: UIViewController {
                 }
 
                 fileRef.downloadURL { (url, error) in
-                    guard let downloadURL = url else {
+                    guard url != nil else {
                         // Uh-oh, an error occurred!
-                        print(error ?? "error")
+                        print(error ?? "error getting url")
                         return
                     }
-                    self.downloadURL = downloadURL.absoluteString
-                    print(downloadURL)
+                    print("download successful")
                 }
             }
         } catch {
