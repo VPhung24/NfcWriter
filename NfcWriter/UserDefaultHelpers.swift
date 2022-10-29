@@ -9,21 +9,27 @@ import Foundation
 import Contacts
 
 extension UserDefaults {
-    func setContact(_ contact: CNContact, forKey key: String) {
+    /**
+     Sets the value of the specified default key to the specified contact value.
+     */
+    func set(_ value: CNContact, forKey defaultName: String) {
         do {
-            let data: Data = try CNContactVCardSerialization.data(with: [contact])
-            UserDefaults.standard.set(data.first, forKey: key)
+            let data: Data = try CNContactVCardSerialization.data(with: [value])
+            UserDefaults.standard.set(data.first, forKey: defaultName)
         } catch {
             print("error setting contact as user default")
         }
     }
 
-    func contact(forKey key: String) -> CNContact? {
-        if let data: Data = UserDefaults.standard.object(forKey: key) as? Data {
+    /**
+     returns the contact associated with the specified key
+     */
+    func contact(forKey defaultName: String) -> CNContact? {
+        if let data: Data = UserDefaults.standard.object(forKey: defaultName) as? Data {
             do {
                 return try CNContactVCardSerialization.contacts(with: data).first
             } catch {
-                print("error decoding contact")
+                print("error decoding contact from user defaults")
             }
         }
         return nil

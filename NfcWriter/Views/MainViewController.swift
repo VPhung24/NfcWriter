@@ -148,7 +148,7 @@ extension MainViewController: CNContactViewControllerDelegate {
 
         self.contact = contact
 
-        UserDefaults.standard.setContact(contact, forKey: "contact")
+        UserDefaults.standard.set(contact, forKey: "contact")
 
         self.dismiss(animated: true) {
             self.contactSelected()
