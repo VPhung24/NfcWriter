@@ -15,58 +15,26 @@ class MainViewController: UIViewController {
     var contact: CNContact?
     var downloadURL: String?
 
-    lazy var buttonStackView: UIStackView = {
-        let stackView = UIStackView(frame: CGRect(x: 10, y: (view.bounds.height - 300) / 2, width: view.bounds.width - 20, height: 300))
-        stackView.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin]
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.axis = .vertical
-        stackView.spacing = 20
-        return stackView
-    }()
-
-    lazy var twitterButton: UIButton = {
-        let button = initButton(withStyle: .twitter)
-        button.addTarget(self, action: #selector(twitterSelected), for: .touchUpInside)
-        return button
-    }()
-
-    lazy var contactsButton: UIButton = {
-        let button = initButton(withStyle: .contacts)
-        button.addTarget(self, action: #selector(contactSelected), for: .touchUpInside)
-        return button
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // #if DEBUG
-        //        print("debug")
-        //        UserDefaults.standard.removeObject(forKey: "contact")
-        // #else
-        //        print("prod")
-        // #endif
-
         title = "write nfc"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        
+        let twitterButton = UIButton(buttonStyle: .twitter)
+        twitterButton.addTarget(self, action: #selector(twitterSelected), for: .touchUpInside)
+        
+        let contactsButton = UIButton(buttonStyle: .contacts)
+        contactsButton.addTarget(self, action: #selector(contactSelected), for: .touchUpInside)
+        
+        let buttonStackView = UIStackView(frame: CGRect(x: 10, y: (view.bounds.height - 300) / 2, width: view.bounds.width - 20, height: 300), forAxis: .vertical)
 
         buttonStackView.addArrangedSubview(twitterButton)
         buttonStackView.addArrangedSubview(contactsButton)
 
         self.view.addSubview(buttonStackView)
     }
-
-    private func initButton(withStyle style: NFCButtonStyle) -> UIButton {
-        let button = UIButton(type: .roundedRect)
-        button.backgroundColor = style.backgroundColor()
-        button.layer.cornerRadius = 20
-        button.imageView?.contentMode = .scaleAspectFit
-        button.contentHorizontalAlignment = .left
-        button.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
-        button.setImage(style.image(), for: .normal)
-        return button
-    }
-
+    
     @objc private func twitterSelected() {
         self.presentNavController(withViewController: SearchViewController())
     }

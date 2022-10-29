@@ -40,3 +40,15 @@ extension UIImage {
         self.init(systemName: systemName, withConfiguration: UIImage.SymbolConfiguration(pointSize: pointSize, weight: .bold, scale: .large))!
     }
 }
+
+extension UIButton {
+    convenience init(buttonStyle: NFCButtonStyle) {
+        self.init(type: .roundedRect)
+        self.backgroundColor = buttonStyle.backgroundColor()
+        self.layer.cornerRadius = 20
+        self.imageView?.contentMode = .scaleAspectFit
+        self.contentHorizontalAlignment = .center
+        self.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
+        self.setImage(buttonStyle.image(), for: .normal)
+    }
+}

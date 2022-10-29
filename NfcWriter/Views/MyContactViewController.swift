@@ -17,28 +17,16 @@ protocol MyContactViewControllerDelegate: AnyObject {
 class MyContactViewController: UIViewController {
     weak var delegate: MyContactViewControllerDelegate?
     var tagManager: NFCTagManager?
-    var buttonStackView: UIStackView?
+    
 
     lazy var shareButton: UIButton = {
-        let button = UIButton(type: .roundedRect)
-        button.backgroundColor = NFCButtonStyle.share.backgroundColor()
-        button.layer.cornerRadius = 20
-        button.imageView?.contentMode = .scaleAspectFit
-        button.contentHorizontalAlignment = .center
-        button.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
-        button.setImage(NFCButtonStyle.share.image(), for: .normal)
+        let button = UIButton(buttonStyle: .share)
         button.addTarget(self, action: #selector(shareNfcContact), for: .touchUpInside)
         return button
     }()
 
     lazy var editButton: UIButton = {
-        let button = UIButton(type: .roundedRect)
-        button.backgroundColor = NFCButtonStyle.contacts.backgroundColor()
-        button.layer.cornerRadius = 20
-        button.imageView?.contentMode = .scaleAspectFit
-        button.contentHorizontalAlignment = .center
-        button.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
-        button.setImage(NFCButtonStyle.contacts.image(), for: .normal)
+        let button = UIButton(buttonStyle: .contacts)
         button.addTarget(self, action: #selector(editContact), for: .touchUpInside)
         return button
     }()
@@ -47,13 +35,8 @@ class MyContactViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .clear
-
-        buttonStackView = UIStackView(frame: CGRect(x: 20, y: 20, width: view.bounds.width - 40, height: (UIScreen.main.bounds.height / 3) - 40))
-        buttonStackView!.alignment = .fill
-        buttonStackView!.distribution = .fillEqually
-        buttonStackView!.axis = .horizontal
-        buttonStackView!.spacing = 20
-
+        let buttonStackView = UIStackView(frame: CGRect(x: 20, y: 20, width: view.bounds.width - 40, height: (UIScreen.main.bounds.height / 3) - 40), forAxis: .horizontal)
+            
         let modalBackgroundView: UIView = {
             let view = UIView(frame: .zero)
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -63,10 +46,10 @@ class MyContactViewController: UIViewController {
         }()
 
         self.view.addSubview(modalBackgroundView)
-        modalBackgroundView.addSubview(buttonStackView!)
+        modalBackgroundView.addSubview(buttonStackView)
 
-        buttonStackView!.addArrangedSubview(shareButton)
-        buttonStackView!.addArrangedSubview(editButton)
+        buttonStackView.addArrangedSubview(shareButton)
+        buttonStackView.addArrangedSubview(editButton)
 
         NSLayoutConstraint.activate([
             modalBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -74,8 +57,8 @@ class MyContactViewController: UIViewController {
             modalBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             modalBackgroundView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3),
 
-            buttonStackView!.centerXAnchor.constraint(equalTo: modalBackgroundView.centerXAnchor),
-            buttonStackView!.centerYAnchor.constraint(equalTo: modalBackgroundView.centerYAnchor)
+            buttonStackView.centerXAnchor.constraint(equalTo: modalBackgroundView.centerXAnchor),
+            buttonStackView.centerYAnchor.constraint(equalTo: modalBackgroundView.centerYAnchor)
         ])
     }
 
