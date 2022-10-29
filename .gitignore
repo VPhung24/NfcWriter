@@ -92,3 +92,7 @@ iOSInjectionProject/
 NfcWriter/Config.xcconfig
 .DS_Store
 GoogleService-Info.plist
+Gemfile
+Gemfile.lock
+fastlane
+screenshots
