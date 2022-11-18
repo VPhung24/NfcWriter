@@ -1,5 +1,5 @@
 //
-//  NFCViewStyle.swift
+//  UIStackView+Extensions.swift
 //  NfcWriter
 //
 //  Created by Vivian Phung on 10/28/22.

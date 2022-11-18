@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		080ABF62290B9CAF0068BA7E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 080ABF61290B9CAF0068BA7E /* GoogleService-Info.plist */; };
 		080ABF65290C8E5D0068BA7E /* NFCButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ABF64290C8E5D0068BA7E /* NFCButtonStyle.swift */; };
-		080ABF69290CC2FB0068BA7E /* NFCViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ABF68290CC2FB0068BA7E /* NFCViewStyle.swift */; };
 		080ABF6C290CC8810068BA7E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 080ABF6B290CC8810068BA7E /* FirebaseStorage */; };
+		081477CF2927456600F176B2 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081477CE2927456600F176B2 /* UIStackView+Extensions.swift */; };
 		081AF85928FDF71E00425075 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF85828FDF71E00425075 /* AppDelegate.swift */; };
 		081AF85B28FDF71E00425075 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF85A28FDF71E00425075 /* SceneDelegate.swift */; };
 		081AF85D28FDF71E00425075 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF85C28FDF71E00425075 /* SearchViewController.swift */; };
@@ -27,7 +27,7 @@
 		0855DF622900E3080025858B /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0855DF612900E3080025858B /* SnapshotHelper.swift */; };
 		08EC165B290AFDEB00C26DC5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC165A290AFDEB00C26DC5 /* MainViewController.swift */; };
 		08EC165D290B0ED300C26DC5 /* MyContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC165C290B0ED300C26DC5 /* MyContactViewController.swift */; };
-		08EC165F290B487200C26DC5 /* UserDefaultHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC165E290B487200C26DC5 /* UserDefaultHelpers.swift */; };
+		08EC165F290B487200C26DC5 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC165E290B487200C26DC5 /* UserDefaults+Extensions.swift */; };
 		08EC169A290B7FE000C26DC5 /* FirebaseHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC1699290B7FE000C26DC5 /* FirebaseHelpers.swift */; };
 		08EC169E290B823B00C26DC5 /* NFCTagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC169D290B823B00C26DC5 /* NFCTagManager.swift */; };
 /* End PBXBuildFile section */
@@ -45,7 +45,7 @@
 /* Begin PBXFileReference section */
 		080ABF61290B9CAF0068BA7E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		080ABF64290C8E5D0068BA7E /* NFCButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCButtonStyle.swift; sourceTree = "<group>"; };
-		080ABF68290CC2FB0068BA7E /* NFCViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCViewStyle.swift; sourceTree = "<group>"; };
+		081477CE2927456600F176B2 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
 		081AF85528FDF71E00425075 /* NfcWriter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NfcWriter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		081AF85828FDF71E00425075 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		081AF85A28FDF71E00425075 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,7 +69,7 @@
 		0855DF632900F1DB0025858B /* NfcWriterRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NfcWriterRelease.entitlements; sourceTree = "<group>"; };
 		08EC165A290AFDEB00C26DC5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		08EC165C290B0ED300C26DC5 /* MyContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyContactViewController.swift; sourceTree = "<group>"; };
-		08EC165E290B487200C26DC5 /* UserDefaultHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultHelpers.swift; sourceTree = "<group>"; };
+		08EC165E290B487200C26DC5 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		08EC1699290B7FE000C26DC5 /* FirebaseHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelpers.swift; sourceTree = "<group>"; };
 		08EC169D290B823B00C26DC5 /* NFCTagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCTagManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,7 +93,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		080ABF63290BAAF30068BA7E /* Views */ = {
+		080ABF63290BAAF30068BA7E /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				08EC165A290AFDEB00C26DC5 /* MainViewController.swift */,
@@ -101,7 +101,44 @@
 				081AF87C28FF1DCA00425075 /* TagNFCViewController.swift */,
 				08EC165C290B0ED300C26DC5 /* MyContactViewController.swift */,
 			);
-			path = Views;
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		081477D12927458500F176B2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				081477CE2927456600F176B2 /* UIStackView+Extensions.swift */,
+				08EC165E290B487200C26DC5 /* UserDefaults+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		081477D2292745FC00F176B2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				081AF87028FDFD2700425075 /* TwitterHandleModel.swift */,
+				080ABF64290C8E5D0068BA7E /* NFCButtonStyle.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		081477D3292746BF00F176B2 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				081AF87328FE08FF00425075 /* APIManager.swift */,
+				081AF87A28FF1CBE00425075 /* EndpointManager.swift */,
+				08EC169D290B823B00C26DC5 /* NFCTagManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		081477D42927470500F176B2 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				08EC1699290B7FE000C26DC5 /* FirebaseHelpers.swift */,
+				081AF86E28FDFC5800425075 /* Section.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		081AF84C28FDF71E00425075 = {
@@ -126,21 +163,16 @@
 		081AF85728FDF71E00425075 /* NfcWriter */ = {
 			isa = PBXGroup;
 			children = (
-				0855DF632900F1DB0025858B /* NfcWriterRelease.entitlements */,
-				0855DF2E28FFB1E20025858B /* NfcWriter.entitlements */,
 				081AF85828FDF71E00425075 /* AppDelegate.swift */,
 				081AF85A28FDF71E00425075 /* SceneDelegate.swift */,
-				080ABF63290BAAF30068BA7E /* Views */,
-				08EC1699290B7FE000C26DC5 /* FirebaseHelpers.swift */,
-				080ABF68290CC2FB0068BA7E /* NFCViewStyle.swift */,
-				080ABF64290C8E5D0068BA7E /* NFCButtonStyle.swift */,
-				08EC165E290B487200C26DC5 /* UserDefaultHelpers.swift */,
-				08EC169D290B823B00C26DC5 /* NFCTagManager.swift */,
-				081AF86E28FDFC5800425075 /* Section.swift */,
-				081AF87028FDFD2700425075 /* TwitterHandleModel.swift */,
-				081AF87328FE08FF00425075 /* APIManager.swift */,
-				081AF87A28FF1CBE00425075 /* EndpointManager.swift */,
+				080ABF63290BAAF30068BA7E /* View Controllers */,
+				081477D12927458500F176B2 /* Extensions */,
+				081477D2292745FC00F176B2 /* Models */,
+				081477D3292746BF00F176B2 /* Managers */,
+				081477D42927470500F176B2 /* Utilities */,
 				081AF86128FDF71F00425075 /* Assets.xcassets */,
+				0855DF2E28FFB1E20025858B /* NfcWriter.entitlements */,
+				0855DF632900F1DB0025858B /* NfcWriterRelease.entitlements */,
 				080ABF61290B9CAF0068BA7E /* GoogleService-Info.plist */,
 				081AF86328FDF71F00425075 /* LaunchScreen.storyboard */,
 				081AF86628FDF71F00425075 /* Info.plist */,
@@ -296,9 +328,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				080ABF69290CC2FB0068BA7E /* NFCViewStyle.swift in Sources */,
 				081AF87428FE08FF00425075 /* APIManager.swift in Sources */,
-				08EC165F290B487200C26DC5 /* UserDefaultHelpers.swift in Sources */,
+				08EC165F290B487200C26DC5 /* UserDefaults+Extensions.swift in Sources */,
 				08EC165D290B0ED300C26DC5 /* MyContactViewController.swift in Sources */,
 				081AF85D28FDF71E00425075 /* SearchViewController.swift in Sources */,
 				08EC169A290B7FE000C26DC5 /* FirebaseHelpers.swift in Sources */,
@@ -309,6 +340,7 @@
 				080ABF65290C8E5D0068BA7E /* NFCButtonStyle.swift in Sources */,
 				08EC169E290B823B00C26DC5 /* NFCTagManager.swift in Sources */,
 				08EC165B290AFDEB00C26DC5 /* MainViewController.swift in Sources */,
+				081477CF2927456600F176B2 /* UIStackView+Extensions.swift in Sources */,
 				081AF87128FDFD2700425075 /* TwitterHandleModel.swift in Sources */,
 				081AF87D28FF1DCA00425075 /* TagNFCViewController.swift in Sources */,
 			);
