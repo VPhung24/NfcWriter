@@ -25,13 +25,13 @@ class MainViewController: UIViewController {
 
         let twitterButton = UIButton(buttonStyle: .twitter)
         twitterButton.addTarget(self, action: #selector(twitterSelected), for: .touchUpInside)
-        twitterButton.accessibilityLabel = NFCButtonStyle.twitter.accessibilityLabel()
-        twitterButton.accessibilityHint = NFCButtonStyle.twitter.accessibilityHint()
+        twitterButton.accessibilityLabel = NFCButtonStyle.twitter.accessibilityLabel
+        twitterButton.accessibilityHint = NFCButtonStyle.twitter.accessibilityHint
 
         let contactsButton = UIButton(buttonStyle: .contacts)
         contactsButton.addTarget(self, action: #selector(contactSelected), for: .touchUpInside)
-        contactsButton.accessibilityLabel = NFCButtonStyle.contacts.accessibilityLabel()
-        contactsButton.accessibilityHint = NFCButtonStyle.contacts.accessibilityHint()
+        contactsButton.accessibilityLabel = NFCButtonStyle.contacts.accessibilityLabel
+        contactsButton.accessibilityHint = NFCButtonStyle.contacts.accessibilityHint
 
         let buttonStackView = UIStackView(frame: CGRect(x: 10, y: (view.bounds.height - 300) / 2, width: view.bounds.width - 20, height: 300), forAxis: .vertical)
 

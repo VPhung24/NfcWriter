@@ -13,7 +13,7 @@ enum NFCButtonStyle: String {
     case share
     case writeNfc
 
-    func backgroundColor() -> UIColor {
+    var backgroundColor: UIColor {
         switch self {
         case .twitter:
             return UIColor(red: 29/255, green: 161/255, blue: 242/255, alpha: 1.0)
@@ -26,7 +26,7 @@ enum NFCButtonStyle: String {
         }
     }
 
-    func image() -> UIImage {
+    var image: UIImage {
         switch self {
         case .twitter:
             return UIImage(named: "twitter_white_logo")!.withRenderingMode(.alwaysOriginal)
@@ -39,7 +39,7 @@ enum NFCButtonStyle: String {
         }
     }
 
-    func accessibilityLabel() -> String {
+    var accessibilityLabel: String {
         switch self {
         case .twitter:
             return "twitter"
@@ -52,7 +52,7 @@ enum NFCButtonStyle: String {
         }
     }
 
-    func accessibilityHint() -> String {
+    var accessibilityHint: String {
         switch self {
         case .twitter:
             return "find twitter to write to nfc"
