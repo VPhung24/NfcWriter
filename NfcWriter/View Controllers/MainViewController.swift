@@ -12,7 +12,9 @@ import ICU
 import nanopb
 
 class MainViewController: UIViewController {
-    var contact: CNContact?
+    var contact: CNContact? {
+        UserDefaults.standard.contact(forKey: "contact")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +46,7 @@ class MainViewController: UIViewController {
     }
 
     private func showContactViewController() {
-        let contactViewController = (self.contact != nil) ? CNContactViewController(for: self.contact!) : CNContactViewController(forNewContact: nil)
+        let contactViewController = (contact != nil) ? CNContactViewController(for: contact!) : CNContactViewController(forNewContact: nil)
         contactViewController.delegate = self
         contactViewController.allowsActions = false
 
@@ -64,7 +66,7 @@ class MainViewController: UIViewController {
     }
 
     @objc private func contactSelected() {
-        if self.contact ?? UserDefaults.standard.contact(forKey: "contact") != nil {
+        if contact != nil {
             let contactViewController = MyContactViewController()
             contactViewController.delegate = self
             self.presentNavController(withViewController: contactViewController)
@@ -145,8 +147,6 @@ extension MainViewController: CNContactViewControllerDelegate {
         }
 
         uploadContact(contact)
-
-        self.contact = contact
 
         UserDefaults.standard.set(contact, forKey: "contact")
 
