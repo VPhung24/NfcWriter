@@ -53,6 +53,17 @@
                ReferencedContainer = "container:NfcWriter.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "08FFA985292D770900410B69"
+               BuildableName = "NfcWriterTests.xctest"
+               BlueprintName = "NfcWriterTests"
+               ReferencedContainer = "container:NfcWriter.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

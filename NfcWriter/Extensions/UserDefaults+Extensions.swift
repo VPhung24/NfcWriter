@@ -14,8 +14,8 @@ extension UserDefaults {
      */
     func set(_ value: CNContact, forKey defaultName: String) {
         do {
-            let data: Data = try CNContactVCardSerialization.data(with: [value])
-            UserDefaults.standard.set(data.first, forKey: defaultName)
+            let data: Data = try NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: true)
+            UserDefaults.standard.set(data, forKey: defaultName)
         } catch {
             print("error setting contact as user default")
         }
@@ -25,9 +25,11 @@ extension UserDefaults {
      returns the contact associated with the specified key
      */
     func contact(forKey defaultName: String) -> CNContact? {
-        if let data: Data = UserDefaults.standard.object(forKey: defaultName) as? Data {
+        if let data = UserDefaults.standard.data(forKey: defaultName) {
             do {
-                return try CNContactVCardSerialization.contacts(with: data).first
+                if let loadedContact = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [CNContact.self], from: data) as? CNContact {
+                    return loadedContact
+                }
             } catch {
                 print("error decoding contact from user defaults")
             }
