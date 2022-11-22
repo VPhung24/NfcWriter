@@ -34,28 +34,20 @@ class MyContactViewController: UIViewController {
         editButton.accessibilityLabel = NFCButtonStyle.contacts.accessibilityLabel
         editButton.accessibilityHint = NFCButtonStyle.contacts.accessibilityHint
 
-        let buttonStackView = UIStackView(frame: CGRect(x: 20, y: 20, width: view.bounds.width - 40, height: (UIScreen.main.bounds.height / 3) - 40), forAxis: .horizontal)
+        let buttonStackView = UIStackView(arrangedSubViews: [tagNfcButton, editButton], axis: .horizontal, distribution: .fillEqually)
 
         let modalBackgroundView = UIView(frame: .zero)
-        modalBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         modalBackgroundView.backgroundColor = .systemBackground
         modalBackgroundView.layer.cornerRadius = 20
 
-        self.view.addSubview(modalBackgroundView)
-        modalBackgroundView.addSubview(buttonStackView)
-
-        buttonStackView.addArrangedSubview(tagNfcButton)
-        buttonStackView.addArrangedSubview(editButton)
-
-        NSLayoutConstraint.activate([
+        view.addSubviewWithConstraints(modalBackgroundView, [
             modalBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             modalBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             modalBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            modalBackgroundView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3),
-
-            buttonStackView.centerXAnchor.constraint(equalTo: modalBackgroundView.centerXAnchor),
-            buttonStackView.centerYAnchor.constraint(equalTo: modalBackgroundView.centerYAnchor)
+            modalBackgroundView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3)
         ])
+
+        modalBackgroundView.addSubviewWithInsets(buttonStackView)
     }
 
     @objc func writeNFC() {

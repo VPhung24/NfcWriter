@@ -7,21 +7,19 @@
 
 import UIKit
 import CoreNFC
+import VivUIExtensions
 
 class TagNFCViewController: UIViewController {
     let twitterProfile: TwitterHandleModel
 
     var tagManager: NFCTagManager?
 
-    let imageView: UIImageView = {
-        let imageView = UIImageView(frame: .zero)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.masksToBounds = false
-        imageView.layer.cornerRadius = (UIScreen.main.bounds.width - 20) / 2
-        imageView.clipsToBounds = true
-        return imageView
-    }()
+    private lazy var imageView = UIImageView().configured {
+        $0.contentMode = .scaleAspectFit
+        $0.layer.masksToBounds = false
+        $0.layer.cornerRadius = (UIScreen.main.bounds.width - 20) / 2
+        $0.clipsToBounds = true
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,13 +41,7 @@ class TagNFCViewController: UIViewController {
 
         setProfilePhoto(withImage: twitterProfile.image ?? UIImage(systemName: "star")!)
 
-        self.view.addSubview(imageView)
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            imageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20)
-        ])
+        self.view.addSubviewWithInsets(imageView)
     }
 
     init(twitterProfile: TwitterHandleModel) {

@@ -10,7 +10,6 @@
 		080ABF62290B9CAF0068BA7E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 080ABF61290B9CAF0068BA7E /* GoogleService-Info.plist */; };
 		080ABF65290C8E5D0068BA7E /* NFCButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080ABF64290C8E5D0068BA7E /* NFCButtonStyle.swift */; };
 		080ABF6C290CC8810068BA7E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 080ABF6B290CC8810068BA7E /* FirebaseStorage */; };
-		081477CF2927456600F176B2 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081477CE2927456600F176B2 /* UIStackView+Extensions.swift */; };
 		081AF85928FDF71E00425075 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF85828FDF71E00425075 /* AppDelegate.swift */; };
 		081AF85B28FDF71E00425075 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF85A28FDF71E00425075 /* SceneDelegate.swift */; };
 		081AF85D28FDF71E00425075 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF85C28FDF71E00425075 /* SearchViewController.swift */; };
@@ -36,6 +35,7 @@
 		08FFA996292D787B00410B69 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 08FFA995292D787B00410B69 /* LICENSE.md */; };
 		08FFA9A0292D803900410B69 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FFA99E292D803900410B69 /* UIButton+Extensions.swift */; };
 		08FFA9A1292D803900410B69 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FFA99F292D803900410B69 /* UIImage+Extensions.swift */; };
+		08FFA9A4292D81E500410B69 /* VivUIExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 08FFA9A3292D81E500410B69 /* VivUIExtensions */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +58,6 @@
 /* Begin PBXFileReference section */
 		080ABF61290B9CAF0068BA7E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		080ABF64290C8E5D0068BA7E /* NFCButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCButtonStyle.swift; sourceTree = "<group>"; };
-		081477CE2927456600F176B2 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
 		081AF85528FDF71E00425075 /* NfcWriter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NfcWriter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		081AF85828FDF71E00425075 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		081AF85A28FDF71E00425075 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08FFA9A4292D81E500410B69 /* VivUIExtensions in Frameworks */,
 				080ABF6C290CC8810068BA7E /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,7 +134,6 @@
 		081477D12927458500F176B2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				081477CE2927456600F176B2 /* UIStackView+Extensions.swift */,
 				08EC165E290B487200C26DC5 /* UserDefaults+Extensions.swift */,
 				08FFA99E292D803900410B69 /* UIButton+Extensions.swift */,
 				08FFA99F292D803900410B69 /* UIImage+Extensions.swift */,
@@ -260,6 +259,7 @@
 			name = NfcWriter;
 			packageProductDependencies = (
 				080ABF6B290CC8810068BA7E /* FirebaseStorage */,
+				08FFA9A3292D81E500410B69 /* VivUIExtensions */,
 			);
 			productName = NfcWriter;
 			productReference = 081AF85528FDF71E00425075 /* NfcWriter.app */;
@@ -338,6 +338,7 @@
 			mainGroup = 081AF84C28FDF71E00425075;
 			packageReferences = (
 				080ABF6A290CC8810068BA7E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				08FFA9A2292D81E500410B69 /* XCRemoteSwiftPackageReference "VivUIExtensions" */,
 			);
 			productRefGroup = 081AF85628FDF71E00425075 /* Products */;
 			projectDirPath = "";
@@ -417,7 +418,6 @@
 				080ABF65290C8E5D0068BA7E /* NFCButtonStyle.swift in Sources */,
 				08EC169E290B823B00C26DC5 /* NFCTagManager.swift in Sources */,
 				08EC165B290AFDEB00C26DC5 /* MainViewController.swift in Sources */,
-				081477CF2927456600F176B2 /* UIStackView+Extensions.swift in Sources */,
 				08FFA9A1292D803900410B69 /* UIImage+Extensions.swift in Sources */,
 				081AF87128FDFD2700425075 /* TwitterHandleModel.swift in Sources */,
 				081AF87D28FF1DCA00425075 /* TagNFCViewController.swift in Sources */,
@@ -800,6 +800,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		08FFA9A2292D81E500410B69 /* XCRemoteSwiftPackageReference "VivUIExtensions" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/VPhung24/VivUIExtensions.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -812,6 +820,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 080ABF6A290CC8810068BA7E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		08FFA9A3292D81E500410B69 /* VivUIExtensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08FFA9A2292D81E500410B69 /* XCRemoteSwiftPackageReference "VivUIExtensions" */;
+			productName = VivUIExtensions;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

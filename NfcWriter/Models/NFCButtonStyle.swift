@@ -29,13 +29,13 @@ enum NFCButtonStyle: String {
     var image: UIImage {
         switch self {
         case .twitter:
-            return UIImage(named: "twitter_white_logo")!.withRenderingMode(.alwaysOriginal)
+            return UIImage(named: "twitter_white_logo")!.resizeImageToWidth(newWidth: 100)
         case .contacts:
-            return UIImage(systemName: "person.crop.square.filled.and.at.rectangle.fill", pointSize: 60).withTintColor(.white).withRenderingMode(.alwaysOriginal)
+            return UIImage(systemName: "person.crop.square.filled.and.at.rectangle.fill")!.resizeImageToWidth(newWidth: 100).withTintColor(.white)
         case .share:
-            return UIImage(systemName: "square.and.arrow.up.fill", pointSize: 60).withTintColor(.white).withRenderingMode(.alwaysOriginal)
+            return (UIImage(systemName: "square.and.arrow.up.fill")!.resizeImageToWidth(newWidth: 100).withTintColor(.white))
         case .writeNfc:
-            return UIImage(systemName: "iphone.homebutton.radiowaves.left.and.right", pointSize: 60).withTintColor(.white).withRenderingMode(.alwaysOriginal)
+            return UIImage(systemName: "iphone.homebutton.radiowaves.left.and.right")!.resizeImageToWidth(newWidth: 100).withTintColor(.white)
         }
     }
 

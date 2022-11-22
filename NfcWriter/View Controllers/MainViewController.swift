@@ -10,6 +10,7 @@ import ContactsUI
 import Contacts
 import ICU
 import nanopb
+import VivUIExtensions
 
 class MainViewController: UIViewController {
     var contact: CNContact? {
@@ -33,12 +34,14 @@ class MainViewController: UIViewController {
         contactsButton.accessibilityLabel = NFCButtonStyle.contacts.accessibilityLabel
         contactsButton.accessibilityHint = NFCButtonStyle.contacts.accessibilityHint
 
-        let buttonStackView = UIStackView(frame: CGRect(x: 10, y: (view.bounds.height - 300) / 2, width: view.bounds.width - 20, height: 300), forAxis: .vertical)
+        let buttonStackView = UIStackView(arrangedSubViews: [twitterButton, contactsButton], axis: .vertical, distribution: .fillEqually)
 
-        buttonStackView.addArrangedSubview(twitterButton)
-        buttonStackView.addArrangedSubview(contactsButton)
-
-        self.view.addSubview(buttonStackView)
+        view.addSubviewWithConstraints(buttonStackView, [
+            buttonStackView.heightAnchor.constraint(equalToConstant: view.bounds.height / 3),
+            buttonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            buttonStackView.widthAnchor.constraint(equalToConstant: view.bounds.width - 20)
+        ])
     }
 
     @objc private func twitterSelected() {
@@ -109,22 +112,15 @@ class MainViewController: UIViewController {
     }
 
     private func initTitleLabel() -> UIView {
-        let titleView: UIStackView = UIStackView(frame: .zero, forAxis: .horizontal)
-        titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.spacing = 0
-
-        let iphoneImageView = UIImageView(image: UIImage(systemName: "iphone", pointSize: UIFont.systemFontSize).withTintColor(.label).withRenderingMode(.alwaysOriginal))
+        let iphoneImageView = UIImageView(image: UIImage(systemName: "iphone")?.withTintColor(.label).withRenderingMode(.alwaysOriginal))
         iphoneImageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
         iphoneImageView.accessibilityLabel = "iphone"
 
-        let waveImageView = UIImageView(image: UIImage(systemName: "wave.3.forward", pointSize: UIFont.systemFontSize).withTintColor(.label).withRenderingMode(.alwaysOriginal))
+        let waveImageView = UIImageView(image: UIImage(systemName: "wave.3.forward")?.withTintColor(.label).withRenderingMode(.alwaysOriginal))
         waveImageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
         waveImageView.accessibilityLabel = "writes nfcs"
 
-        titleView.addArrangedSubview(iphoneImageView)
-        titleView.addArrangedSubview(waveImageView)
-
-        return titleView
+        return UIStackView(arrangedSubViews: [iphoneImageView, waveImageView], axis: .horizontal)
     }
 }
 
