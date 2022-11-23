@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TwitterSearchViewController.swift
 //  NfcWriter
 //
 //  Created by Vivian Phung on 10/17/22.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class TwitterSearchViewController: UIViewController {
 
-    private var twitterHandles: [TwitterHandleModel] = []
+    private var twitterHandles: [TwitterProfileModel] = []
     private lazy var dataSource = initDataSource()
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, TwitterHandleModel>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, TwitterProfileModel>
 
     let searchBarController: UISearchController = {
         let searchController = UISearchController()
@@ -76,7 +76,7 @@ class SearchViewController: UIViewController {
 
     // MARK: - UITableViewDiffableDataSource
     func initDataSource() -> DataSource {
-        let dataSource = DataSource(tableView: searchTableView, cellProvider: { (tableView, indexPath, twitterHandle: TwitterHandleModel) -> UITableViewCell? in
+        let dataSource = DataSource(tableView: searchTableView, cellProvider: { (tableView, indexPath, twitterHandle: TwitterProfileModel) -> UITableViewCell? in
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "twitter", for: indexPath)
             var content = cell.defaultContentConfiguration()
             content.text = twitterHandle.name
@@ -106,7 +106,7 @@ class SearchViewController: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: animated)
     }
 
-    fileprivate func getProfileImageForTwitterProfile(twitterHandle: TwitterHandleModel) {
+    fileprivate func getProfileImageForTwitterProfile(twitterHandle: TwitterProfileModel) {
         APIManager.shared.getProfileImage(twitterHandleModel: twitterHandle) { updatedTwitterModelWithImage, _ in
             guard let updatedModel = updatedTwitterModelWithImage else {
                 return
@@ -128,7 +128,7 @@ class SearchViewController: UIViewController {
 }
 
 // MARK: - UISearchResultsUpdating
-extension SearchViewController: UISearchResultsUpdating {
+extension TwitterSearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let searchBarText = searchController.searchBar.text {
             APIManager.shared.searchforTwitterHandle(forString: searchBarText) { [weak self] (response, error) in
@@ -144,17 +144,17 @@ extension SearchViewController: UISearchResultsUpdating {
 }
 
 // MARK: - UITableViewDelegate
-extension SearchViewController: UITableViewDelegate {
+extension TwitterSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchBarController.isActive = false
         DispatchQueue.main.async {
-            self.navigationController?.pushViewController(TagNFCViewController(twitterProfile: self.twitterHandles[indexPath.row]), animated: true)
+            self.navigationController?.pushViewController(TwitterNFCTaggingViewController(twitterProfile: self.twitterHandles[indexPath.row]), animated: true)
             self.navigationController?.setNavigationBarHidden(false, animated: false)
         }
     }
 }
 
-extension SearchViewController: UISearchBarDelegate {
+extension TwitterSearchViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         clearSearch()
     }

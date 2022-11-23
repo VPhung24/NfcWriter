@@ -1,5 +1,5 @@
 //
-//  TwitterHandleModel.swift
+//  TwitterProfileModel.swift
 //  NfcWriter
 //
 //  Created by Vivian Phung on 10/17/22.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TwitterHandleModel: Hashable, Codable {
+class TwitterProfileModel: Hashable, Codable {
     var username: String
     var name: String
     var profileImageURL: String
@@ -46,7 +46,7 @@ class TwitterHandleModel: Hashable, Codable {
         hasher.combine(image)
     }
 
-    static func == (lhs: TwitterHandleModel, rhs: TwitterHandleModel) -> Bool {
+    static func == (lhs: TwitterProfileModel, rhs: TwitterProfileModel) -> Bool {
         lhs.username == rhs.username
     }
 }

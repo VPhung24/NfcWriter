@@ -37,8 +37,8 @@ class MainViewController: UIViewController {
         }()
 
         let buttonStackView = UIStackView(arrangedSubViews:
-                                            [NfcButton(buttonType: .twitter, delegate: self),
-                                             NfcButton(buttonType: .writeContact, delegate: self)],
+                                            [NFCAccessoryTypeButton(buttonType: .twitter, delegate: self),
+                                             NFCAccessoryTypeButton(buttonType: .writeContact, delegate: self)],
                                           axis: .vertical,
                                           distribution: .fillEqually)
 
@@ -116,19 +116,19 @@ extension MainViewController: CNContactViewControllerDelegate {
     }
 }
 
-extension MainViewController: NfcButtonDelegate {
-    func nfcButtonSelected(ofType: NFCButtonStyle) {
+extension MainViewController: NFCAccessoryTypeDelegate {
+    func nfcButtonSelected(ofType: NFCAccessoryType) {
         switch ofType {
         case .twitter:
             DispatchQueue.main.async {
-                self.present(UINavigationController(rootViewController: SearchViewController()), animated: true)
+                self.present(UINavigationController(rootViewController: TwitterSearchViewController()), animated: true)
             }
         case .editContact:
             self.dismissView()
             showCNContactViewController()
         case .writeContact:
             if contact != nil {
-                let contactViewController = MyContactViewController()
+                let contactViewController = ContactNFCTaggingViewController()
                 contactViewController.delegate = self
                 DispatchQueue.main.async {
                     self.present(contactViewController, animated: true)

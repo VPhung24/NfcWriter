@@ -1,5 +1,5 @@
 //
-//  NfcButton.swift
+//  NFCAccessoryTypeButton.swift
 //  NfcWriter
 //
 //  Created by Vivian Phung on 11/22/22.
@@ -7,15 +7,11 @@
 
 import UIKit
 
-protocol NfcButtonDelegate: AnyObject {
-    func nfcButtonSelected(ofType: NFCButtonStyle)
-}
+class NFCAccessoryTypeButton: UIButton {
+    public var type: NFCAccessoryType
+    weak var delegate: NFCAccessoryTypeDelegate?
 
-class NfcButton: UIButton {
-    public var type: NFCButtonStyle
-    weak var delegate: NfcButtonDelegate?
-
-    required init(buttonType: NFCButtonStyle, delegate: NfcButtonDelegate?) {
+    required init(buttonType: NFCAccessoryType, delegate: NFCAccessoryTypeDelegate?) {
         self.type = buttonType
         self.delegate = delegate
         super.init(frame: .zero)
@@ -29,7 +25,7 @@ class NfcButton: UIButton {
         titleLabel?.adjustsFontForContentSizeCategory = true
         imageView?.adjustsImageSizeForAccessibilityContentSizeCategory = true
 
-        self.addTarget(self, action: #selector(buttonTypeTapped), for: .touchDown)
+        self.addTarget(self, action: #selector(accessoryTypeButtonTapped), for: .touchDown)
     }
 
     required init?(coder: NSCoder) {
@@ -54,7 +50,7 @@ class NfcButton: UIButton {
         }
     }
 
-    @objc func buttonTypeTapped() {
+    @objc func accessoryTypeButtonTapped() {
         self.delegate?.nfcButtonSelected(ofType: type)
     }
 }

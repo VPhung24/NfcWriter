@@ -7,7 +7,7 @@
 
 import UIKit
 
-typealias DataSource = UITableViewDiffableDataSource<Section, TwitterHandleModel>
+typealias DataSource = UITableViewDiffableDataSource<Section, TwitterProfileModel>
 
 enum Section {
     case twitter

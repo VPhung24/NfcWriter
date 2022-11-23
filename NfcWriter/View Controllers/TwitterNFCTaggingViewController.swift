@@ -1,5 +1,5 @@
 //
-//  TagNFCViewController.swift
+//  TwitterNFCTaggingViewController.swift
 //  NfcWriter
 //
 //  Created by Vivian Phung on 10/18/22.
@@ -9,9 +9,8 @@ import UIKit
 import CoreNFC
 import VivUIExtensions
 
-class TagNFCViewController: UIViewController {
-    let twitterProfile: TwitterHandleModel
-
+class TwitterNFCTaggingViewController: UIViewController {
+    let twitterProfile: TwitterProfileModel
     var tagManager: NFCTagManager?
 
     private lazy var imageView = UIImageView().configured {
@@ -44,7 +43,7 @@ class TagNFCViewController: UIViewController {
         self.view.addSubviewWithInsets(imageView)
     }
 
-    init(twitterProfile: TwitterHandleModel) {
+    init(twitterProfile: TwitterProfileModel) {
         self.twitterProfile = twitterProfile
 
         super.init(nibName: nil, bundle: nil)

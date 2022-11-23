@@ -1,5 +1,5 @@
 //
-//  NFCButtonStyle.swift
+//  NFCAccessoryType.swift
 //  NfcWriter
 //
 //  Created by Vivian Phung on 10/28/22.
@@ -7,7 +7,11 @@
 
 import UIKit
 
-enum NFCButtonStyle: String {
+protocol NFCAccessoryTypeDelegate: AnyObject {
+    func nfcButtonSelected(ofType: NFCAccessoryType)
+}
+
+enum NFCAccessoryType: String {
     case twitter
     case writeContact
     case editContact

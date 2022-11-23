@@ -1,5 +1,5 @@
 //
-//  MyContactViewController.swift
+//  ContactNFCTaggingViewController.swift
 //  NfcWriter
 //
 //  Created by Vivian Phung on 10/27/22.
@@ -9,8 +9,8 @@ import UIKit
 import Contacts
 import ContactsUI
 
-class MyContactViewController: UIViewController {
-    weak var delegate: NfcButtonDelegate?
+class ContactNFCTaggingViewController: UIViewController {
+    weak var delegate: NFCAccessoryTypeDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,8 +18,8 @@ class MyContactViewController: UIViewController {
         view.backgroundColor = .clear
 
         let buttonStackView = UIStackView(arrangedSubViews:
-                                            [NfcButton(buttonType: .writeNfc, delegate: self.delegate),
-                                             NfcButton(buttonType: .editContact, delegate: self.delegate)],
+                                            [NFCAccessoryTypeButton(buttonType: .writeNfc, delegate: self.delegate),
+                                             NFCAccessoryTypeButton(buttonType: .editContact, delegate: self.delegate)],
                                           axis: .horizontal,
                                           distribution: .fillEqually)
 

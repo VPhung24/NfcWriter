@@ -17,7 +17,7 @@ class APIManager {
     private let twitterAPIURL = "https://api.twitter.com/"
 
     // MARK: - API Calls
-    func getProfileImage(twitterHandleModel: TwitterHandleModel, isFullImage: Bool = false, completionHandler: @escaping (TwitterHandleModel?, Error?) -> Void) {
+    func getProfileImage(twitterHandleModel: TwitterProfileModel, isFullImage: Bool = false, completionHandler: @escaping (TwitterProfileModel?, Error?) -> Void) {
         let baseURL: String = isFullImage ? twitterHandleModel.profileImageURL.replacingOccurrences(of: "_normal", with: "") : twitterHandleModel.profileImageURL
         let urlRequest: URLRequest = networkRequest(baseURL: baseURL, endpoint: TwitterAPIEndpoint.getProfilePhoto)
         networkTask(request: urlRequest, endpoint: TwitterAPIEndpoint.getProfilePhoto) { (response: Data?, _) in
@@ -30,14 +30,14 @@ class APIManager {
         }
     }
 
-    func searchforTwitterHandle(forString input: String, completionHandler: @escaping ([TwitterHandleModel]?, Error?) -> Void) {
+    func searchforTwitterHandle(forString input: String, completionHandler: @escaping ([TwitterProfileModel]?, Error?) -> Void) {
         let parameters: [String: Any] = ["q": input, "page": "1", "count": "10"]
 
         guard let bearerToken: String = Bundle.main.infoDictionary?["BEARER_TOKEN"] as? String else { return }
         let header: [String: String] = ["Authorization": bearerToken]
 
         let urlRequest: URLRequest = networkRequest(baseURL: twitterAPIURL, endpoint: TwitterAPIEndpoint.getHandlesForString, parameters: parameters, headers: header)
-        networkTask(request: urlRequest, endpoint: TwitterAPIEndpoint.getHandlesForString) { (response: [TwitterHandleModel]?, error) in
+        networkTask(request: urlRequest, endpoint: TwitterAPIEndpoint.getHandlesForString) { (response: [TwitterProfileModel]?, error) in
             completionHandler(response, error)
         }
     }
