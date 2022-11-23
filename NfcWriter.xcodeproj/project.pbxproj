@@ -33,9 +33,9 @@
 		08FFA992292D780C00410B69 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 08FFA991292D780C00410B69 /* FirebaseStorage */; };
 		08FFA994292D786C00410B69 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 08FFA993292D786B00410B69 /* README.md */; };
 		08FFA996292D787B00410B69 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 08FFA995292D787B00410B69 /* LICENSE.md */; };
-		08FFA9A0292D803900410B69 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FFA99E292D803900410B69 /* UIButton+Extensions.swift */; };
 		08FFA9A1292D803900410B69 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FFA99F292D803900410B69 /* UIImage+Extensions.swift */; };
 		08FFA9A4292D81E500410B69 /* VivUIExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 08FFA9A3292D81E500410B69 /* VivUIExtensions */; };
+		08FFA9A7292D8EBB00410B69 /* NfcButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FFA9A6292D8EBB00410B69 /* NfcButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,8 +88,8 @@
 		08FFA988292D770900410B69 /* VivUIExtensionsUserDefaultsContactTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VivUIExtensionsUserDefaultsContactTests.swift; sourceTree = "<group>"; };
 		08FFA993292D786B00410B69 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		08FFA995292D787B00410B69 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = SOURCE_ROOT; };
-		08FFA99E292D803900410B69 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		08FFA99F292D803900410B69 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		08FFA9A6292D8EBB00410B69 /* NfcButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NfcButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				08EC165E290B487200C26DC5 /* UserDefaults+Extensions.swift */,
-				08FFA99E292D803900410B69 /* UIButton+Extensions.swift */,
 				08FFA99F292D803900410B69 /* UIImage+Extensions.swift */,
 			);
 			path = Extensions;
@@ -195,6 +194,7 @@
 			children = (
 				081AF85828FDF71E00425075 /* AppDelegate.swift */,
 				081AF85A28FDF71E00425075 /* SceneDelegate.swift */,
+				08FFA9A5292D8EA600410B69 /* Views */,
 				080ABF63290BAAF30068BA7E /* View Controllers */,
 				081477D12927458500F176B2 /* Extensions */,
 				081477D2292745FC00F176B2 /* Models */,
@@ -238,6 +238,14 @@
 				08FFA988292D770900410B69 /* VivUIExtensionsUserDefaultsContactTests.swift */,
 			);
 			path = NfcWriterTests;
+			sourceTree = "<group>";
+		};
+		08FFA9A5292D8EA600410B69 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				08FFA9A6292D8EBB00410B69 /* NfcButton.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,10 +419,10 @@
 				081AF85D28FDF71E00425075 /* SearchViewController.swift in Sources */,
 				08EC169A290B7FE000C26DC5 /* FirebaseHelpers.swift in Sources */,
 				081AF87B28FF1CBE00425075 /* EndpointManager.swift in Sources */,
+				08FFA9A7292D8EBB00410B69 /* NfcButton.swift in Sources */,
 				081AF85928FDF71E00425075 /* AppDelegate.swift in Sources */,
 				081AF86F28FDFC5800425075 /* Section.swift in Sources */,
 				081AF85B28FDF71E00425075 /* SceneDelegate.swift in Sources */,
-				08FFA9A0292D803900410B69 /* UIButton+Extensions.swift in Sources */,
 				080ABF65290C8E5D0068BA7E /* NFCButtonStyle.swift in Sources */,
 				08EC169E290B823B00C26DC5 /* NFCTagManager.swift in Sources */,
 				08EC165B290AFDEB00C26DC5 /* MainViewController.swift in Sources */,

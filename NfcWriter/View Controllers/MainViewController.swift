@@ -10,9 +10,11 @@ import ContactsUI
 import Contacts
 import ICU
 import nanopb
+import CoreNFC
 import VivUIExtensions
 
 class MainViewController: UIViewController {
+    var tagManager: NFCTagManager?
     var contact: CNContact? {
         UserDefaults.standard.contact(forKey: "contact")
     }
@@ -22,19 +24,23 @@ class MainViewController: UIViewController {
 
         view.backgroundColor = .systemBackground
 
-        navigationItem.titleView = initTitleLabel()
+        navigationItem.titleView = {
+            let iphoneImageView = UIImageView(image: UIImage(systemName: "iphone")?.withTintColor(.label).withRenderingMode(.alwaysOriginal))
+            iphoneImageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
+            iphoneImageView.accessibilityLabel = "iphone"
 
-        let twitterButton = UIButton(buttonStyle: .twitter)
-        twitterButton.addTarget(self, action: #selector(twitterSelected), for: .touchUpInside)
-        twitterButton.accessibilityLabel = NFCButtonStyle.twitter.accessibilityLabel
-        twitterButton.accessibilityHint = NFCButtonStyle.twitter.accessibilityHint
+            let waveImageView = UIImageView(image: UIImage(systemName: "wave.3.forward")?.withTintColor(.label).withRenderingMode(.alwaysOriginal))
+            waveImageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
+            waveImageView.accessibilityLabel = "writes nfcs"
 
-        let contactsButton = UIButton(buttonStyle: .contacts)
-        contactsButton.addTarget(self, action: #selector(contactSelected), for: .touchUpInside)
-        contactsButton.accessibilityLabel = NFCButtonStyle.contacts.accessibilityLabel
-        contactsButton.accessibilityHint = NFCButtonStyle.contacts.accessibilityHint
+            return UIStackView(arrangedSubViews: [iphoneImageView, waveImageView], axis: .horizontal)
+        }()
 
-        let buttonStackView = UIStackView(arrangedSubViews: [twitterButton, contactsButton], axis: .vertical, distribution: .fillEqually)
+        let buttonStackView = UIStackView(arrangedSubViews:
+                                            [NfcButton(buttonType: .twitter, delegate: self),
+                                             NfcButton(buttonType: .writeContact, delegate: self)],
+                                          axis: .vertical,
+                                          distribution: .fillEqually)
 
         view.addSubviewWithConstraints(buttonStackView, [
             buttonStackView.heightAnchor.constraint(equalToConstant: view.bounds.height / 3),
@@ -44,11 +50,7 @@ class MainViewController: UIViewController {
         ])
     }
 
-    @objc private func twitterSelected() {
-        self.presentNavController(withViewController: SearchViewController())
-    }
-
-    private func showContactViewController() {
+    private func showCNContactViewController() {
         let contactViewController = (contact != nil) ? CNContactViewController(for: contact!) : CNContactViewController(forNewContact: nil)
         contactViewController.delegate = self
         contactViewController.allowsActions = false
@@ -68,21 +70,8 @@ class MainViewController: UIViewController {
         }
     }
 
-    @objc private func contactSelected() {
-        if contact != nil {
-            let contactViewController = MyContactViewController()
-            contactViewController.delegate = self
-            self.presentNavController(withViewController: contactViewController)
-        } else {
-            showContactViewController()
-        }
-    }
-
-    private func presentNavController(withViewController viewController: UIViewController) {
-        DispatchQueue.main.async {
-            let navigationController = UINavigationController(rootViewController: viewController)
-            self.present(navigationController, animated: true)
-        }
+    @objc private func dismissView() {
+        self.dismiss(animated: true)
     }
 
     private func uploadContact(_ contact: CNContact) {
@@ -110,29 +99,6 @@ class MainViewController: UIViewController {
             print("error uploading contact")
         }
     }
-
-    private func initTitleLabel() -> UIView {
-        let iphoneImageView = UIImageView(image: UIImage(systemName: "iphone")?.withTintColor(.label).withRenderingMode(.alwaysOriginal))
-        iphoneImageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
-        iphoneImageView.accessibilityLabel = "iphone"
-
-        let waveImageView = UIImageView(image: UIImage(systemName: "wave.3.forward")?.withTintColor(.label).withRenderingMode(.alwaysOriginal))
-        waveImageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
-        waveImageView.accessibilityLabel = "writes nfcs"
-
-        return UIStackView(arrangedSubViews: [iphoneImageView, waveImageView], axis: .horizontal)
-    }
-}
-
-extension MainViewController: MyContactViewControllerDelegate {
-    @objc func dismissView() {
-        self.dismiss(animated: true)
-    }
-
-    func editContact() {
-        self.dismiss(animated: true)
-        showContactViewController()
-    }
 }
 
 extension MainViewController: CNContactViewControllerDelegate {
@@ -146,8 +112,55 @@ extension MainViewController: CNContactViewControllerDelegate {
 
         UserDefaults.standard.set(contact, forKey: "contact")
 
-        self.dismiss(animated: true) {
-            self.contactSelected()
+        self.dismiss(animated: true)
+    }
+}
+
+extension MainViewController: NfcButtonDelegate {
+    func nfcButtonSelected(ofType: NFCButtonStyle) {
+        switch ofType {
+        case .twitter:
+            DispatchQueue.main.async {
+                self.present(UINavigationController(rootViewController: SearchViewController()), animated: true)
+            }
+        case .editContact:
+            self.dismissView()
+            showCNContactViewController()
+        case .writeContact:
+            if contact != nil {
+                let contactViewController = MyContactViewController()
+                contactViewController.delegate = self
+                DispatchQueue.main.async {
+                    self.present(contactViewController, animated: true)
+                }
+            } else {
+                showCNContactViewController()
+            }
+        default:
+            print("nfc writing here")
+            let fileRef = storageRef.child("contacts/\(UIDevice.current.identifierForVendor!.uuidString).vcf")
+
+            fileRef.getData(maxSize: 500) { thefile, _ in
+                guard thefile != nil else { return }
+
+                fileRef.downloadURL { contactURL, _ in
+                    guard let contactURL = contactURL else { return }
+
+                    guard NFCNDEFReaderSession.readingAvailable else {
+                        let alertController = UIAlertController(
+                            title: "Scanning Not Supported",
+                            message: "This device doesn't support tag scanning.",
+                            preferredStyle: .alert
+                        )
+                        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alertController, animated: true, completion: nil)
+                        return
+                    }
+
+                    self.tagManager = NFCTagManager(url: contactURL.absoluteString)
+                }
+            }
         }
     }
+
 }
