@@ -6,53 +6,52 @@
 //
 
 import UIKit
+import VivUIExtensions
 
 class TwitterSearchViewController: UIViewController {
-
-    private var twitterHandles: [TwitterProfileModel] = []
+    private var twitterProfiles: [TwitterProfileModel] = []
     private lazy var dataSource = initDataSource()
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, TwitterProfileModel>
 
-    let searchBarController: UISearchController = {
-        let searchController = UISearchController()
-        searchController.searchBar.placeholder = "search for twitter handle"
-        searchController.searchBar.accessibilityTraits = .searchField
-        searchController.searchBar.searchBarStyle = .minimal
-        searchController.searchBar.backgroundColor = .systemBackground
+    private lazy var searchBarController = UISearchController().configured {
+        $0.searchBar.placeholder = "search for twitter handle"
+        $0.searchBar.accessibilityTraits = .searchField
+        $0.searchBar.searchBarStyle = .minimal
+        $0.searchBar.backgroundColor = .systemBackground
 
         // dynamic text sizing per settings
-        searchController.searchBar.searchTextField.adjustsFontForContentSizeCategory = true
+        $0.searchBar.searchTextField.adjustsFontForContentSizeCategory = true
 
         // remove predictive text in keyboard
-        searchController.searchBar.searchTextField.autocorrectionType = .no
-        searchController.searchBar.searchTextField.spellCheckingType = .no
+        $0.searchBar.searchTextField.autocorrectionType = .no
+        $0.searchBar.searchTextField.spellCheckingType = .no
 
         // accessibility enable clear button tap
-        searchController.obscuresBackgroundDuringPresentation = false
-        return searchController
-    }()
+        $0.obscuresBackgroundDuringPresentation = false
+    }
 
-    let searchTableView: UITableView = {
-        let tableView: UITableView = UITableView(frame: .zero)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "twitter")
-
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = .systemBackground
-        tableView.backgroundView = backgroundView
-        return tableView
-    }()
+    private lazy var searchTableView = UITableView().configured {
+        $0.register(UITableViewCell.self, forCellReuseIdentifier: "twitter")
+        $0.backgroundView = UIView().configured { backgroundView in
+            backgroundView.backgroundColor = .systemBackground
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationController?.setNavigationBarHidden(true, animated: false)
-        self.view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground
 
         searchBarController.searchResultsUpdater = self
         searchBarController.searchBar.delegate = self
 
-        self.view.addSubview(searchTableView)
+        view.addSubviewWithConstraints(searchTableView, [
+            searchTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            searchTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            searchTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
 
         searchTableView.delegate = self
         searchTableView.dataSource = dataSource
@@ -64,14 +63,7 @@ class TwitterSearchViewController: UIViewController {
             clearButton.addTarget(self, action: #selector(clearSearch), for: .touchUpInside)
         }
 
-        NSLayoutConstraint.activate([
-            searchTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            searchTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searchTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            searchTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-        ])
-
-        self.view.accessibilityElements = [searchBarController, searchTableView]
+        view.accessibilityElements = [searchBarController, searchTableView]
     }
 
     // MARK: - UITableViewDiffableDataSource
@@ -102,7 +94,7 @@ class TwitterSearchViewController: UIViewController {
     func applySnapshot(animated: Bool) {
         var snapshot = Snapshot()
         snapshot.appendSections([.twitter])
-        snapshot.appendItems(twitterHandles)
+        snapshot.appendItems(twitterProfiles)
         dataSource.apply(snapshot, animatingDifferences: animated)
     }
 
@@ -113,7 +105,7 @@ class TwitterSearchViewController: UIViewController {
             }
             var currentSnapshot = self.dataSource.snapshot()
             if let datasourceIndex = currentSnapshot.indexOfItem(updatedModel) {
-                let item = self.twitterHandles[datasourceIndex]
+                let item = self.twitterProfiles[datasourceIndex]
                 item.image = updatedModel.image
                 currentSnapshot.reloadItems([item])
                 self.dataSource.apply(currentSnapshot, animatingDifferences: true)
@@ -122,7 +114,7 @@ class TwitterSearchViewController: UIViewController {
     }
 
     @objc private func clearSearch() {
-        self.twitterHandles = []
+        self.twitterProfiles = []
         self.applySnapshot(animated: true)
     }
 }
@@ -136,7 +128,7 @@ extension TwitterSearchViewController: UISearchResultsUpdating {
                     print("apiRequest error: ", error ?? "nothing")
                     return
                 }
-                self?.twitterHandles = response
+                self?.twitterProfiles = response
                 self?.applySnapshot(animated: true)
             }
         }
@@ -148,7 +140,7 @@ extension TwitterSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchBarController.isActive = false
         DispatchQueue.main.async {
-            self.navigationController?.pushViewController(TwitterNFCTaggingViewController(twitterProfile: self.twitterHandles[indexPath.row]), animated: true)
+            self.navigationController?.pushViewController(TwitterNFCTaggingViewController(twitterProfile: self.twitterProfiles[indexPath.row]), animated: true)
             self.navigationController?.setNavigationBarHidden(false, animated: false)
         }
     }
