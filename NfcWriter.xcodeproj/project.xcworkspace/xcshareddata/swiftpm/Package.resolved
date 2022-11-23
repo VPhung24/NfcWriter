@@ -113,8 +113,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/VPhung24/VivUIExtensions.git",
       "state" : {
-        "revision" : "771061f6d28579b1701cf8cd3a2914535630aef9",
-        "version" : "1.0.1"
+        "revision" : "6013547f99734728bfee248675bbf9214cabe7a1",
+        "version" : "1.0.2"
       }
     }
   ],

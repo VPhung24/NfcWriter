@@ -26,14 +26,12 @@
 		0855DF622900E3080025858B /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0855DF612900E3080025858B /* SnapshotHelper.swift */; };
 		08EC165B290AFDEB00C26DC5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC165A290AFDEB00C26DC5 /* MainViewController.swift */; };
 		08EC165D290B0ED300C26DC5 /* MyContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC165C290B0ED300C26DC5 /* MyContactViewController.swift */; };
-		08EC165F290B487200C26DC5 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC165E290B487200C26DC5 /* UserDefaults+Extensions.swift */; };
 		08EC169A290B7FE000C26DC5 /* FirebaseHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC1699290B7FE000C26DC5 /* FirebaseHelpers.swift */; };
 		08EC169E290B823B00C26DC5 /* NFCTagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC169D290B823B00C26DC5 /* NFCTagManager.swift */; };
 		08FFA989292D770900410B69 /* VivUIExtensionsUserDefaultsContactTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FFA988292D770900410B69 /* VivUIExtensionsUserDefaultsContactTests.swift */; };
 		08FFA992292D780C00410B69 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 08FFA991292D780C00410B69 /* FirebaseStorage */; };
 		08FFA994292D786C00410B69 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 08FFA993292D786B00410B69 /* README.md */; };
 		08FFA996292D787B00410B69 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 08FFA995292D787B00410B69 /* LICENSE.md */; };
-		08FFA9A1292D803900410B69 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FFA99F292D803900410B69 /* UIImage+Extensions.swift */; };
 		08FFA9A4292D81E500410B69 /* VivUIExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 08FFA9A3292D81E500410B69 /* VivUIExtensions */; };
 		08FFA9A7292D8EBB00410B69 /* NfcButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FFA9A6292D8EBB00410B69 /* NfcButton.swift */; };
 /* End PBXBuildFile section */
@@ -81,14 +79,12 @@
 		0855DF632900F1DB0025858B /* NfcWriterRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NfcWriterRelease.entitlements; sourceTree = "<group>"; };
 		08EC165A290AFDEB00C26DC5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		08EC165C290B0ED300C26DC5 /* MyContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyContactViewController.swift; sourceTree = "<group>"; };
-		08EC165E290B487200C26DC5 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		08EC1699290B7FE000C26DC5 /* FirebaseHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelpers.swift; sourceTree = "<group>"; };
 		08EC169D290B823B00C26DC5 /* NFCTagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCTagManager.swift; sourceTree = "<group>"; };
 		08FFA986292D770900410B69 /* NfcWriterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NfcWriterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		08FFA988292D770900410B69 /* VivUIExtensionsUserDefaultsContactTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VivUIExtensionsUserDefaultsContactTests.swift; sourceTree = "<group>"; };
 		08FFA993292D786B00410B69 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		08FFA995292D787B00410B69 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = SOURCE_ROOT; };
-		08FFA99F292D803900410B69 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		08FFA9A6292D8EBB00410B69 /* NfcButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NfcButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,15 +125,6 @@
 				08EC165C290B0ED300C26DC5 /* MyContactViewController.swift */,
 			);
 			path = "View Controllers";
-			sourceTree = "<group>";
-		};
-		081477D12927458500F176B2 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				08EC165E290B487200C26DC5 /* UserDefaults+Extensions.swift */,
-				08FFA99F292D803900410B69 /* UIImage+Extensions.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		081477D2292745FC00F176B2 /* Models */ = {
@@ -196,7 +183,6 @@
 				081AF85A28FDF71E00425075 /* SceneDelegate.swift */,
 				08FFA9A5292D8EA600410B69 /* Views */,
 				080ABF63290BAAF30068BA7E /* View Controllers */,
-				081477D12927458500F176B2 /* Extensions */,
 				081477D2292745FC00F176B2 /* Models */,
 				081477D3292746BF00F176B2 /* Managers */,
 				081477D42927470500F176B2 /* Utilities */,
@@ -414,7 +400,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				081AF87428FE08FF00425075 /* APIManager.swift in Sources */,
-				08EC165F290B487200C26DC5 /* UserDefaults+Extensions.swift in Sources */,
 				08EC165D290B0ED300C26DC5 /* MyContactViewController.swift in Sources */,
 				081AF85D28FDF71E00425075 /* SearchViewController.swift in Sources */,
 				08EC169A290B7FE000C26DC5 /* FirebaseHelpers.swift in Sources */,
@@ -426,7 +411,6 @@
 				080ABF65290C8E5D0068BA7E /* NFCButtonStyle.swift in Sources */,
 				08EC169E290B823B00C26DC5 /* NFCTagManager.swift in Sources */,
 				08EC165B290AFDEB00C26DC5 /* MainViewController.swift in Sources */,
-				08FFA9A1292D803900410B69 /* UIImage+Extensions.swift in Sources */,
 				081AF87128FDFD2700425075 /* TwitterHandleModel.swift in Sources */,
 				081AF87D28FF1DCA00425075 /* TagNFCViewController.swift in Sources */,
 			);
@@ -813,7 +797,7 @@
 			repositoryURL = "https://github.com/VPhung24/VivUIExtensions.git";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 1.0.1;
+				minimumVersion = 1.0.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
