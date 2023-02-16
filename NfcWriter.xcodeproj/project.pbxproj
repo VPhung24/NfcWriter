@@ -18,7 +18,7 @@
 		081AF86F28FDFC5800425075 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF86E28FDFC5800425075 /* Section.swift */; };
 		081AF87128FDFD2700425075 /* TwitterProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87028FDFD2700425075 /* TwitterProfileModel.swift */; };
 		081AF87428FE08FF00425075 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87328FE08FF00425075 /* APIManager.swift */; };
-		081AF87B28FF1CBE00425075 /* EndpointManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87A28FF1CBE00425075 /* EndpointManager.swift */; };
+		081AF87B28FF1CBE00425075 /* TwitterAPIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87A28FF1CBE00425075 /* TwitterAPIEndpoints.swift */; };
 		081AF87D28FF1DCA00425075 /* TwitterNFCTaggingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AF87C28FF1DCA00425075 /* TwitterNFCTaggingViewController.swift */; };
 		0855DF532900C0FF0025858B /* NfcWriterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0855DF522900C0FF0025858B /* NfcWriterUITests.swift */; };
 		0855DF552900C0FF0025858B /* NfcWriterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0855DF542900C0FF0025858B /* NfcWriterUITestsLaunchTests.swift */; };
@@ -67,7 +67,7 @@
 		081AF87028FDFD2700425075 /* TwitterProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterProfileModel.swift; sourceTree = "<group>"; };
 		081AF87228FE017F00425075 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		081AF87328FE08FF00425075 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
-		081AF87A28FF1CBE00425075 /* EndpointManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointManager.swift; sourceTree = "<group>"; };
+		081AF87A28FF1CBE00425075 /* TwitterAPIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterAPIEndpoints.swift; sourceTree = "<group>"; };
 		081AF87C28FF1DCA00425075 /* TwitterNFCTaggingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterNFCTaggingViewController.swift; sourceTree = "<group>"; };
 		081AF87F28FF3A2A00425075 /* CoreNFC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreNFC.framework; path = System/Library/Frameworks/CoreNFC.framework; sourceTree = SDKROOT; };
 		0855DF2E28FFB1E20025858B /* NfcWriter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NfcWriter.entitlements; sourceTree = "<group>"; };
@@ -140,7 +140,6 @@
 			isa = PBXGroup;
 			children = (
 				081AF87328FE08FF00425075 /* APIManager.swift */,
-				081AF87A28FF1CBE00425075 /* EndpointManager.swift */,
 				08EC169D290B823B00C26DC5 /* NFCTagManager.swift */,
 			);
 			path = Managers;
@@ -149,6 +148,7 @@
 		081477D42927470500F176B2 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				081AF87A28FF1CBE00425075 /* TwitterAPIEndpoints.swift */,
 				08EC1699290B7FE000C26DC5 /* FirebaseHelpers.swift */,
 				081AF86E28FDFC5800425075 /* Section.swift */,
 			);
@@ -403,7 +403,7 @@
 				08EC165D290B0ED300C26DC5 /* ContactNFCTaggingViewController.swift in Sources */,
 				081AF85D28FDF71E00425075 /* TwitterSearchViewController.swift in Sources */,
 				08EC169A290B7FE000C26DC5 /* FirebaseHelpers.swift in Sources */,
-				081AF87B28FF1CBE00425075 /* EndpointManager.swift in Sources */,
+				081AF87B28FF1CBE00425075 /* TwitterAPIEndpoints.swift in Sources */,
 				08FFA9A7292D8EBB00410B69 /* NFCAccessoryTypeButton.swift in Sources */,
 				081AF85928FDF71E00425075 /* AppDelegate.swift in Sources */,
 				081AF86F28FDFC5800425075 /* Section.swift in Sources */,
@@ -593,6 +593,7 @@
 				DEVELOPMENT_TEAM = 9SAQ42S589;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NfcWriter/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Twitter NFC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "writes twitter handle";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -631,6 +632,7 @@
 				DEVELOPMENT_TEAM = 9SAQ42S589;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NfcWriter/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Twitter NFC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "writes twitter handle";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

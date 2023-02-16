@@ -8,10 +8,10 @@
 import UIKit
 
 class NFCAccessoryTypeButton: UIButton {
-    public var type: NFCAccessoryType
+    private let type: NFCAccessoryType
     weak var delegate: NFCAccessoryTypeDelegate?
 
-    required init(buttonType: NFCAccessoryType, delegate: NFCAccessoryTypeDelegate?) {
+    init(buttonType: NFCAccessoryType, delegate: NFCAccessoryTypeDelegate?) {
         self.type = buttonType
         self.delegate = delegate
         super.init(frame: .zero)
@@ -50,7 +50,7 @@ class NFCAccessoryTypeButton: UIButton {
         }
     }
 
-    @objc func accessoryTypeButtonTapped() {
+    @objc private func accessoryTypeButtonTapped() {
         self.delegate?.nfcButtonSelected(ofType: type)
     }
 }

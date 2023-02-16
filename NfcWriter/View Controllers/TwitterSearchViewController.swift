@@ -67,7 +67,7 @@ class TwitterSearchViewController: UIViewController {
     }
 
     // MARK: - UITableViewDiffableDataSource
-    func initDataSource() -> DataSource {
+    private func initDataSource() -> DataSource {
         let dataSource = DataSource(tableView: searchTableView, cellProvider: { (tableView, indexPath, twitterHandle: TwitterProfileModel) -> UITableViewCell? in
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "twitter", for: indexPath)
             var content = cell.defaultContentConfiguration()
@@ -98,7 +98,7 @@ class TwitterSearchViewController: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: animated)
     }
 
-    fileprivate func getProfileImageForTwitterProfile(twitterHandle: TwitterProfileModel) {
+    private func getProfileImageForTwitterProfile(twitterHandle: TwitterProfileModel) {
         APIManager.shared.getProfileImage(twitterHandleModel: twitterHandle) { updatedTwitterModelWithImage, _ in
             guard let updatedModel = updatedTwitterModelWithImage else {
                 return
