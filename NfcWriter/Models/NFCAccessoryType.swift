@@ -8,10 +8,10 @@
 import UIKit
 
 protocol NFCAccessoryTypeDelegate: AnyObject {
-    func nfcButtonSelected(ofType: NFCAccessoryType)
+    func nfcButtonSelected(sender: Any)
 }
 
-enum NFCAccessoryType: String {
+enum NFCAccessoryType: NSString {
     case twitter
     case writeContact
     case editContact

@@ -11,7 +11,7 @@ import Contacts
 import ICU
 import nanopb
 import CoreNFC
-import VivUIExtensions
+import VivUIKitExtensions
 
 class MainViewController: UIViewController {
     var tagManager: NFCTagManager?
@@ -36,9 +36,11 @@ class MainViewController: UIViewController {
             return UIStackView(arrangedSubViews: [iphoneImageView, waveImageView], axis: .horizontal)
         }()
 
-        let buttonStackView = UIStackView(arrangedSubViews:
-                                            [NFCAccessoryTypeButton(buttonType: .twitter, delegate: self),
-                                             NFCAccessoryTypeButton(buttonType: .writeContact, delegate: self)],
+        let twitterButton: UIButton = UIButton(frame: .zero).nfcAccessory(type: .twitter)
+        let contactButton: UIButton = UIButton(frame: .zero).nfcAccessory(type: .writeContact)
+
+        twitterButton.addTarget(self, action: #selector(nfcButtonSelected), for: .touchUpInside)
+        let buttonStackView = UIStackView(arrangedSubViews: [twitterButton, contactButton],
                                           axis: .vertical,
                                           distribution: .fillEqually)
 
@@ -117,7 +119,10 @@ extension MainViewController: CNContactViewControllerDelegate {
 }
 
 extension MainViewController: NFCAccessoryTypeDelegate {
-    func nfcButtonSelected(ofType: NFCAccessoryType) {
+    @objc func nfcButtonSelected(sender: Any) {
+        guard let button: UIButton = sender else {
+            
+        }
         switch ofType {
         case .twitter:
             DispatchQueue.main.async {

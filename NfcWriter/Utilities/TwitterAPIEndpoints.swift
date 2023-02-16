@@ -6,20 +6,14 @@
 //
 
 import Foundation
+import VivNetworkExtensions
 
-enum Method: String {
-    case GET
-    case POST
-}
-
-protocol Endpoint {
-    var path: String { get }
-    var method: Method { get }
-}
+typealias Method = VivNetworkExtensions.Method
 
 // MARK: - TwitterAPIEndpoint
 enum TwitterAPIEndpoint: Endpoint {
     case getInfoForHandle, getHandlesForString, getProfilePhoto
+
     var path: String {
         switch self {
         case .getInfoForHandle:

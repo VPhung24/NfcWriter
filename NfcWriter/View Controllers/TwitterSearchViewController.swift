@@ -6,7 +6,8 @@
 //
 
 import UIKit
-import VivUIExtensions
+import VivUIKitExtensions
+import VivNetworkExtensions
 
 class TwitterSearchViewController: UIViewController {
     private var twitterProfiles: [TwitterProfileModel] = []

@@ -7,7 +7,8 @@
 
 import UIKit
 import CoreNFC
-import VivUIExtensions
+import VivUIKitExtensions
+import VivNetworkExtensions
 
 class TwitterNFCTaggingViewController: UIViewController {
     let twitterProfile: TwitterProfileModel
@@ -28,8 +29,9 @@ class TwitterNFCTaggingViewController: UIViewController {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "write", style: .plain, target: self, action: #selector(writeTag))
 
-        APIManager.shared.getProfileImage(twitterHandleModel: twitterProfile, isFullImage: true) { [weak self] updatedTwitterModelWithImage, _ in
-            guard let updatedModel = updatedTwitterModelWithImage, let newImage = updatedModel.image else {
+        APIManager.shared.getProfileImage(twitterHandleModel: twitterProfile, isFullImage: true) { [weak self] (updatedTwitterModelWithImage, imageError: Error?) in
+            guard let newImage = updatedTwitterModelWithImage?.image, imageError == nil else {
+                imageError.customPrintMessage("retrieving twitter profile full image")
                 return
             }
             self?.twitterProfile.image = newImage
@@ -61,6 +63,7 @@ class TwitterNFCTaggingViewController: UIViewController {
     // MARK: - Actions
     @objc func writeTag() {
         guard NFCNDEFReaderSession.readingAvailable else {
+            print("error reading nfc ====> !NFCNDEFReaderSession.readingAvailable")
             let alertController = UIAlertController(
                 title: "Scanning Not Supported",
                 message: "This device doesn't support tag scanning.",
@@ -77,5 +80,11 @@ class TwitterNFCTaggingViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
         super.viewWillDisappear(animated)
+    }
+}
+
+extension Error? {
+    func customPrintMessage(_ description: String = "") {
+        print("error \(description) ====> \((self != nil) ? self!.localizedDescription : "")")
     }
 }

@@ -17,9 +17,10 @@ class ContactNFCTaggingViewController: UIViewController {
 
         view.backgroundColor = .clear
 
-        let buttonStackView = UIStackView(arrangedSubViews:
-                                            [NFCAccessoryTypeButton(buttonType: .writeNfc, delegate: self.delegate),
-                                             NFCAccessoryTypeButton(buttonType: .editContact, delegate: self.delegate)],
+        let writeNftButton = UIButton(frame: .zero).nfcAccessory(type: .writeNfc)
+        let editContactButton = UIButton(frame: .zero).nfcAccessory(type: .editContact)
+
+        let buttonStackView = UIStackView(arrangedSubViews: [writeNftButton, editContactButton],
                                           axis: .horizontal,
                                           distribution: .fillEqually)
 
