@@ -27,6 +27,7 @@
 		08BCE02C299EADA500F0EF2F /* VivNetworkExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 08BCE02B299EADA500F0EF2F /* VivNetworkExtensions */; };
 		08BCE02E299EAFF900F0EF2F /* VivUIKitExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 08BCE02D299EAFF900F0EF2F /* VivUIKitExtensions */; };
 		08BCE031299ED66C00F0EF2F /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BCE030299ED66C00F0EF2F /* UIButton+Extensions.swift */; };
+		08BCE06F29A18E7200F0EF2F /* ContactUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BCE06E29A18E7200F0EF2F /* ContactUITests.swift */; };
 		08EC165B290AFDEB00C26DC5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC165A290AFDEB00C26DC5 /* MainViewController.swift */; };
 		08EC165D290B0ED300C26DC5 /* ContactNFCTaggingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC165C290B0ED300C26DC5 /* ContactNFCTaggingViewController.swift */; };
 		08EC169A290B7FE000C26DC5 /* FirebaseHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC1699290B7FE000C26DC5 /* FirebaseHelpers.swift */; };
@@ -79,6 +80,7 @@
 		0855DF612900E3080025858B /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		0855DF632900F1DB0025858B /* NfcWriterRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NfcWriterRelease.entitlements; sourceTree = "<group>"; };
 		08BCE030299ED66C00F0EF2F /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
+		08BCE06E29A18E7200F0EF2F /* ContactUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUITests.swift; sourceTree = "<group>"; };
 		08EC165A290AFDEB00C26DC5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		08EC165C290B0ED300C26DC5 /* ContactNFCTaggingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactNFCTaggingViewController.swift; sourceTree = "<group>"; };
 		08EC1699290B7FE000C26DC5 /* FirebaseHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelpers.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 			children = (
 				0855DF522900C0FF0025858B /* NfcWriterUITests.swift */,
 				0855DF5F2900C7310025858B /* SearchUITests.swift */,
+				08BCE06E29A18E7200F0EF2F /* ContactUITests.swift */,
 				0855DF542900C0FF0025858B /* NfcWriterUITestsLaunchTests.swift */,
 				0855DF612900E3080025858B /* SnapshotHelper.swift */,
 			);
@@ -426,6 +429,7 @@
 				0855DF532900C0FF0025858B /* NfcWriterUITests.swift in Sources */,
 				0855DF602900C7310025858B /* SearchUITests.swift in Sources */,
 				0855DF552900C0FF0025858B /* NfcWriterUITestsLaunchTests.swift in Sources */,
+				08BCE06F29A18E7200F0EF2F /* ContactUITests.swift in Sources */,
 				0855DF622900E3080025858B /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,6 +14,8 @@ final class SearchUITests: XCTestCase {
         let app = XCUIApplication()
         setupSnapshot(app)
         app.launch()
+        app.buttons["twitter"].tap()
+        app.tables["Empty list"].searchFields["search for twitter handle"].tap()
 
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
@@ -21,19 +23,11 @@ final class SearchUITests: XCTestCase {
         continueAfterFailure = false
     }
 
-    override func tearDown() {
-         // Put teardown code here. This method is called after the invocation of each test method in the class.
-         super.tearDown()
-     }
-
     func testSearch() throws {
         // This is an example test method.
         let app = XCUIApplication()
-        app.searchFields["search for twitter handle"].tap()
 
-        let tKey = app.keys["T"]
-        tKey.tap()
-
+        app.keys["T"].tap()
         app.keys["w"].tap()
         app.keys["i"].tap()
         app.keys["t"].tap()
@@ -51,12 +45,22 @@ final class SearchUITests: XCTestCase {
     func testProfileView() throws {
         let app = XCUIApplication()
 
-        app.searchFields["search for twitter handle"].tap()
-
         app.keys["T"].tap()
 
         app.tables.element.cells.element(boundBy: 4).tap()
 
         snapshot("03TwitterProfileT")
+    }
+
+    func testTwitterVC() {
+
+        let app = XCUIApplication()
+
+        app.keys["H"].tap()
+        app.keys["e"].tap()
+        app.keys["l"].tap()
+        app.keys["l"].tap()
+        app.keys["o"].tap()
+
     }
 }

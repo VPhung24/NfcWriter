@@ -121,9 +121,15 @@ extension MainViewController: CNContactViewControllerDelegate {
 
         uploadContact(contact)
 
+        #if TESTING
+        print("testing ==> ")
+        UserDefaults.standard.removeObject(forKey: "contact")
+        #else
         UserDefaults.standard.set(contact, forKey: "contact")
+        #endif
 
         self.dismissVC(animated: true)
+
     }
 }
 
