@@ -17,15 +17,20 @@ class ContactNFCTaggingViewController: UIViewController {
 
         view.backgroundColor = .clear
 
-        let writeNftButton = UIButton(frame: .zero).nfcAccessory(type: .writeNfc)
-        let editContactButton = UIButton(frame: .zero).nfcAccessory(type: .editContact)
+        let writeNftButton = UIButton.nfcAccessor(type: .writeNfc, primaryAction: UIAction(handler: { [weak self] (_) in
+            self?.delegate?.nfcButtonSelected(type: .writeNfc)
+        }))
+
+        let editContactButton = UIButton.nfcAccessor(type: .editContact, primaryAction: UIAction(handler: { [weak self] (_) in
+            self?.delegate?.nfcButtonSelected(type: .writeContact)
+        }))
 
         let buttonStackView = UIStackView(arrangedSubViews: [writeNftButton, editContactButton],
                                           axis: .horizontal,
                                           distribution: .fillEqually)
 
         let modalBackgroundView = UIView(frame: .zero)
-        modalBackgroundView.backgroundColor = .systemBackground
+        modalBackgroundView.backgroundColor = .clear
         modalBackgroundView.layer.cornerRadius = 20
 
         view.addSubviewWithConstraints(modalBackgroundView, [

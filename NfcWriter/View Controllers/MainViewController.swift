@@ -36,10 +36,13 @@ class MainViewController: UIViewController {
             return UIStackView(arrangedSubViews: [iphoneImageView, waveImageView], axis: .horizontal)
         }()
 
-        let twitterButton: UIButton = UIButton(frame: .zero).nfcAccessory(type: .twitter)
-        let contactButton: UIButton = UIButton(frame: .zero).nfcAccessory(type: .writeContact)
+        let twitterButton: UIButton = UIButton.nfcAccessor(type: .twitter, primaryAction: UIAction(handler: { [weak self] (_) in
+            self?.nfcButtonSelected(type: .twitter)
+        }))
+        let contactButton: UIButton = UIButton.nfcAccessor(type: .writeContact, primaryAction: UIAction(handler: { [weak self] (_) in
+            self?.nfcButtonSelected(type: .writeContact)
+        }))
 
-        twitterButton.addTarget(self, action: #selector(nfcButtonSelected), for: .touchUpInside)
         let buttonStackView = UIStackView(arrangedSubViews: [twitterButton, contactButton],
                                           axis: .vertical,
                                           distribution: .fillEqually)
@@ -53,27 +56,27 @@ class MainViewController: UIViewController {
     }
 
     private func showCNContactViewController() {
-        let contactViewController = (contact != nil) ? CNContactViewController(for: contact!) : CNContactViewController(forNewContact: nil)
+        let newContact: Bool = contact == nil
+        let contactViewController = newContact ?  CNContactViewController(forNewContact: nil) : CNContactViewController(for: contact!)
+        contactViewController.view.backgroundColor = .clear
         contactViewController.delegate = self
         contactViewController.allowsActions = false
+        contactViewController.view.layoutIfNeeded()
 
-        // CNContactViewController(forNewContact: pushes onto a white host vc. looks weird lets make it clear
-        let contactNavigationController = UINavigationController(rootViewController: contactViewController)
-        let contactHostViewController = contactNavigationController.viewControllers.first
-        contactHostViewController?.view.backgroundColor = .clear
-        contactHostViewController?.navigationController?.setNavigationBarHidden(true, animated: false)
+        let navigationController = UINavigationController(rootViewController: contactViewController)
+        navigationController.isNavigationBarHidden = true
 
         DispatchQueue.main.async {
-            self.present(contactNavigationController, animated: false)
-            contactNavigationController.setNavigationBarHidden(false, animated: false)
-            if self.contact != nil {
-                contactViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.dismissView))
+            self.present(navigationController, animated: true) {
+                if !newContact {
+                    navigationController.topViewController?.navigationItem.setLeftBarButton( UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction { [weak self] _ in
+                        self?.dismiss(animated: true)
+                    }), animated: false)
+
+                }
+                navigationController.isNavigationBarHidden = false
             }
         }
-    }
-
-    @objc private func dismissView() {
-        self.dismiss(animated: true)
     }
 
     private func uploadContact(_ contact: CNContact) {
@@ -101,12 +104,18 @@ class MainViewController: UIViewController {
             print("error uploading contact")
         }
     }
+
+    private func dismissVC(animated: Bool) {
+        DispatchQueue.main.async {
+            self.dismiss(animated: animated)
+        }
+    }
 }
 
 extension MainViewController: CNContactViewControllerDelegate {
     func contactViewController(_ viewController: CNContactViewController, didCompleteWith contact: CNContact?) {
         guard let contact = contact else {
-            self.dismiss(animated: true)
+            self.dismissVC(animated: true)
             return
         }
 
@@ -114,33 +123,30 @@ extension MainViewController: CNContactViewControllerDelegate {
 
         UserDefaults.standard.set(contact, forKey: "contact")
 
-        self.dismiss(animated: true)
+        self.dismissVC(animated: true)
     }
 }
 
 extension MainViewController: NFCAccessoryTypeDelegate {
-    @objc func nfcButtonSelected(sender: Any) {
-        guard let button: UIButton = sender else {
-            
-        }
-        switch ofType {
+
+    func nfcButtonSelected(type: NFCAccessoryType) {
+        switch type {
         case .twitter:
             DispatchQueue.main.async {
                 self.present(UINavigationController(rootViewController: TwitterSearchViewController()), animated: true)
             }
         case .editContact:
-            self.dismissView()
-            showCNContactViewController()
-        case .writeContact:
-            if contact != nil {
-                let contactViewController = ContactNFCTaggingViewController()
-                contactViewController.delegate = self
-                DispatchQueue.main.async {
-                    self.present(contactViewController, animated: true)
+            DispatchQueue.main.async {
+                self.dismiss(animated: true) {
+                    self.showCNContactViewController()
                 }
-            } else {
-                showCNContactViewController()
             }
+        case .writeContact:
+            DispatchQueue.main.async {
+                self.showCNContactViewController()
+            }
+        case .dismiss:
+            self.dismissVC(animated: true)
         default:
             print("nfc writing here")
             let fileRef = storageRef.child("contacts/\(UIDevice.current.identifierForVendor!.uuidString).vcf")
@@ -165,6 +171,7 @@ extension MainViewController: NFCAccessoryTypeDelegate {
                     self.tagManager = NFCTagManager(url: contactURL.absoluteString)
                 }
             }
+
         }
     }
 

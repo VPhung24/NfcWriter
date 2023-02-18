@@ -8,16 +8,17 @@
 import UIKit
 
 extension UIButton {
-    func nfcAccessory(type: NFCAccessoryType) -> UIButton {
-        backgroundColor = type.backgroundColor
-        layer.cornerRadius = 20
-        imageView?.contentMode = .scaleAspectFit
-        contentHorizontalAlignment = .center
-        setImage(type.image, for: .normal)
-        titleLabel?.adjustsFontForContentSizeCategory = true
-        imageView?.adjustsImageSizeForAccessibilityContentSizeCategory = true
-        accessibilityLabel = type.accessibilityLabel
-        accessibilityHint = type.accessibilityHint
-        return self
+    static func nfcAccessor(type: NFCAccessoryType, primaryAction: UIAction?) -> UIButton {
+        let button = UIButton(primaryAction: primaryAction)
+        button.backgroundColor = type.backgroundColor
+        button.layer.cornerRadius = 20
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentHorizontalAlignment = .center
+        button.setImage(type.image, for: .normal)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+        button.imageView?.adjustsImageSizeForAccessibilityContentSizeCategory = true
+        button.accessibilityLabel = type.accessibilityLabel
+        button.accessibilityHint = type.accessibilityHint
+        return button
     }
 }

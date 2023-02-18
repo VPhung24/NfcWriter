@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NFCAccessoryTypeDelegate: AnyObject {
-    func nfcButtonSelected(sender: Any)
+    func nfcButtonSelected(type: NFCAccessoryType)
 }
 
 enum NFCAccessoryType: NSString {
