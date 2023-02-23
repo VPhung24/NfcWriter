@@ -65,16 +65,15 @@ class MainViewController: UIViewController {
 
         let navigationController = UINavigationController(rootViewController: contactViewController)
         navigationController.isNavigationBarHidden = true
-
         DispatchQueue.main.async {
-            self.present(navigationController, animated: true) {
+            self.present(navigationController, animated: false) {
+                navigationController.isNavigationBarHidden = false
                 if !newContact {
                     navigationController.topViewController?.navigationItem.setLeftBarButton( UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction { [weak self] _ in
                         self?.dismiss(animated: true)
                     }), animated: false)
 
                 }
-                navigationController.isNavigationBarHidden = false
             }
         }
     }
@@ -121,12 +120,7 @@ extension MainViewController: CNContactViewControllerDelegate {
 
         uploadContact(contact)
 
-        #if TESTING
-        print("testing ==> ")
-        UserDefaults.standard.removeObject(forKey: "contact")
-        #else
         UserDefaults.standard.set(contact, forKey: "contact")
-        #endif
 
         self.dismissVC(animated: true)
 

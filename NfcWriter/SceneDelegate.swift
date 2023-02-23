@@ -16,6 +16,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         window.makeKeyAndVisible()
+
+        #if DEBUG
+            print("testing ===> remove contact user default")
+            UserDefaults.standard.removeObject(forKey: "contact")
+        #endif
+
         let rootViewController = UINavigationController(rootViewController: MainViewController())
 
         window.rootViewController = rootViewController
